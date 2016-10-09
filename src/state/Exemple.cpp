@@ -2,9 +2,9 @@
 
 namespace state {
 
-void Exemple::setX (int x) {
-    this->x = x;
-}
+//void Exemple::setX (int x) {
+//    this->x = x;
+//}
 
 }
 
