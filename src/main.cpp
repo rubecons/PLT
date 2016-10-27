@@ -20,9 +20,10 @@ int main(int argc, char *argv[]) {
     // Q_INIT_RESOURCE(resfile);
 
     QApplication app(argc, argv);
-
+//Ferme ferme;
     FenetrePrincipale fenPrincipale;// = new FenetrePrincipale();
-/*QWidget *firstPageWidget = new QWidget;
+    
+    /*QWidget *firstPageWidget = new QWidget;
     QWidget *secondPageWidget = new QWidget;
     QWidget *thirdPageWidget = new QWidget;
 

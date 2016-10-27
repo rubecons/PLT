@@ -19,9 +19,19 @@ class FenetrePrincipale : public QMainWindow {
 public:
     FenetrePrincipale();
     //FenetrePrincipale(const FenetrePrincipale& orig);
-//    virtual ~FenetrePrincipale();
-//private:
+    //virtual ~FenetrePrincipale();
 
+private:
+    void creationMenuBar();
+    void creationStatusBar();
+    QMenu* creationMenu(QMenu *menuPere, const QString &nomMenuFils);
+    //void creationMenu(QMenu *menuPere, QMenu *menuFils, const QString &nomMenuFils);
+    QAction* creationActionDansMenu(QMenu *menuPere, const QString &nomAction, QObject* parent, const QKeySequence &shortcut, const char *signal, const QObject* receiver, const char* method);
+    QAction* creationActionDansMenu(QMenu *menuPere, const QString &nomAction, QObject* parent, const char *signal, const QObject* receiver, const char* method);
+    void creationZoneCentrale();
+    //QListWidgetItem* creationListWidgetItem(QListWidget* listeParent, const QString &nomItem);
+    void creationElevage(const QString &nom,QListWidget* listeParent , QStackedLayout* stackedLayout);
+    
 };
 
 #endif /* FENETREPRINCIPALE_HPP */

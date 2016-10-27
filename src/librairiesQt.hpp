@@ -16,17 +16,27 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QBoxLayout>
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QIcon>
+#include <QLabel>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QStackedLayout>
+#include <QStatusBar>
 #include <QString>
+#include <Qt>
+#include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QWidgetAction>
+
 
 #include "./src/FenetrePrincipale.hpp"
 
