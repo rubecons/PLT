@@ -19,8 +19,10 @@
 #include <QBoxLayout>
 #include <QComboBox>
 #include <QCoreApplication>
+#include <QFormLayout>
 #include <QIcon>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMainWindow>
@@ -28,17 +30,39 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QSpinBox>
 #include <QStackedLayout>
 #include <QStatusBar>
 #include <QString>
 #include <Qt>
+#include <QToolBar>
+//#include <QtSql>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QWidgetAction>
 
+#include <memory>
+#include <array>
+#include <string>
+#include <vector>
 
-#include "./src/FenetrePrincipale.hpp"
+#include "FenetrePrincipale.hpp"
+/*
+#include "Animal.hpp"
+#include "AnimalFemelle.hpp"
+#include "AnimalMale.hpp"
+#include "Elevage.hpp"
+#include "FenetreNouvelElevage.hpp"
+#include "FenetreNouvelleBete.hpp"
+#include "FenetreNouvelleRace.hpp"
+#include "Ferme.hpp"
+#include "Race.hpp"
+#include "Rendu.hpp"
+#include "Temps.hpp"
+//*/
+
+
 
 
 

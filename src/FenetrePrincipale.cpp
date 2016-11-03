@@ -24,6 +24,7 @@ FenetrePrincipale::FenetrePrincipale()
     setWindowIcon(QIcon("./rapport/taureau.png"));
 
     creationMenuBar();
+    //creationToolBar();
     creationStatusBar();
     creationZoneCentrale();
 }
@@ -41,7 +42,8 @@ void FenetrePrincipale::creationMenuBar()
 
         QAction* actionEnregistrer=creationActionDansMenu(menuFerme, "Enregistrer", this, QKeySequence("Ctrl+S"), SIGNAL(triggered()), qApp, SLOT());
         QAction* actionStatistiqueFerme=creationActionDansMenu(menuFerme, "Statistiques de la ferme", this, QKeySequence("Ctrl+F"), SIGNAL(triggered()), qApp, SLOT());
-
+        QAction* actionAvancerTemps=creationActionDansMenu(menuFerme, "Unité de temps suivante", this, QKeySequence("Enter"), SIGNAL(triggered()), qApp, SLOT());
+        actionAvancerTemps->setIcon(QIcon("./rapport/ico_play_gris.png"));
         
     QMenu* menuBudget= new QMenu("&Budget");
     menuBar()->addMenu(menuBudget);
@@ -100,11 +102,15 @@ void FenetrePrincipale::creationStatusBar()
     //barreStatut->showMessage(tr("Prêt.Prêt.Prêt.Prêt.Prêt.Prêt.Prêt."));
     QLabel* texteStatusBar= new QLabel(QString(" "), this, Qt::FramelessWindowHint);
     barreStatut -> addWidget (texteStatusBar,500);
+    texteStatusBar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
     //*
     QLabel* texteStatusBar2= new QLabel(QString("mois année"), this, Qt::FramelessWindowHint);
     barreStatut -> addPermanentWidget (texteStatusBar2, 15);
+    texteStatusBar2->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    
     QLabel* texteStatusBar3= new QLabel(QString("Budget = 0 €"), this, Qt::FramelessWindowHint);
-    barreStatut -> addPermanentWidget (texteStatusBar3, 15);//*/
+    barreStatut -> addPermanentWidget (texteStatusBar3, 15);
+    texteStatusBar3->setFrameStyle(QFrame::Panel | QFrame::Sunken);//*/
     /*/QWidgetAction* actionStatusBar = new QWidgetAction(this);
     //actionStatus
     barreStatut -> addPermanentWidget (actionStatusBar, 15);
@@ -135,17 +141,15 @@ void FenetrePrincipale::creationZoneCentrale()
                 listeElevage -> addItem("elevage1");
                 listeElevage -> addItem("elevage2");
                 listeElevage -> addItem("elevage3");//*/
-                
-                
-                //listeElevage->setFixedWidth(150);
-                //
+        
             
             //layoutVerticalDeGauche-> addWidget (listeElevage);//On intègre la zone déroulante en haut du layout verticale à gauche
-            
+            QPushButton* boutonAjouterElevage=creationBoutonDansLayout("Nouvel Élevage", zoneCentrale, layoutVerticalDeGauche, SIGNAL(clicked()), qApp, SLOT(), true);
+            /*/
             QPushButton* boutonAjouterElevage = new QPushButton(QString("Nouvel Élevage"), this);//On créée un bouton de nouvel élevage
             QObject::connect(boutonAjouterElevage, SIGNAL(clicked()), qApp, SLOT());
             layoutVerticalDeGauche->addWidget(boutonAjouterElevage);//On rajoute le bouton de nouvel élevage en 2eme position verticale du layout verticale de gauche
-                    
+                    //*/
         //QScrollArea* aireScrollContenuElevage = new QScrollArea;//on créée une zone déroulante
         //layoutPrincipal -> addWidget(aireScrollContenuElevage);
     //zoneCentrale->
@@ -157,14 +161,21 @@ void FenetrePrincipale::creationZoneCentrale()
     //*/
         QVBoxLayout* layoutVerticalDeDroite= new QVBoxLayout;
         layoutPrincipal->addLayout(layoutVerticalDeDroite);
-        QStackedLayout *stackedLayout = new QStackedLayout(zoneCentrale);
-        //aireScrollContenuElevage->setWidget(stackedLayout);
-        layoutVerticalDeDroite->addLayout(stackedLayout);
-        connect(listeElevage, SIGNAL(currentRowChanged(int)), stackedLayout, SLOT(setCurrentIndex(int)));
+            QStackedLayout *stackedLayout = new QStackedLayout(zoneCentrale);
+            //aireScrollContenuElevage->setWidget(stackedLayout);
+            layoutVerticalDeDroite->addLayout(stackedLayout);
+            connect(listeElevage, SIGNAL(currentRowChanged(int)), stackedLayout, SLOT(setCurrentIndex(int)));
     
-        QPushButton* boutonNouvelleBete= new QPushButton("Nouvel Animal", this);
-        layoutVerticalDeDroite->addWidget(boutonNouvelleBete);
-        connect(boutonNouvelleBete, SIGNAL(clicked()), qApp, SLOT());
+            QHBoxLayout* layoutHorizontalBasDroite= new QHBoxLayout;
+            layoutVerticalDeDroite->addLayout(layoutHorizontalBasDroite);
+                QPushButton* boutonSelectionner=creationBoutonDansLayout("Sélectionner", zoneCentrale, layoutHorizontalBasDroite, SIGNAL(clicked()), qApp, SLOT(), true);
+                QPushButton* boutonAnnuler=creationBoutonDansLayout("Annuler", zoneCentrale, layoutHorizontalBasDroite, SIGNAL(clicked()), qApp, SLOT(), false);
+                QPushButton* boutonSupprimerBete=creationBoutonDansLayout("Supprimer bête(s)", zoneCentrale, layoutHorizontalBasDroite, SIGNAL(clicked()), qApp, SLOT(), false);
+                QPushButton* boutonNouvelleBete=creationBoutonDansLayout("Nouvelle(s) bête(s)", zoneCentrale, layoutHorizontalBasDroite, SIGNAL(clicked()), qApp, SLOT(), true);
+                /*/
+                QPushButton* boutonNouvelleBete= new QPushButton("Nouvel Animal", this);
+                layoutVerticalDeDroite->addWidget(boutonNouvelleBete);
+                connect(boutonNouvelleBete, SIGNAL(clicked()), qApp, SLOT());//*/
     /*QLabel *elevage1 = new QLabel("page1");
     stackedLayout->addWidget(elevage1);
     
@@ -192,6 +203,25 @@ void FenetrePrincipale::creationZoneCentrale()
     
     //return item;
 }
+
+QPushButton* FenetrePrincipale::creationBoutonDansLayout(const QString &nom, QWidget* widgetParent, QLayout* layoutParent, const char* signal, QObject* receiver, const char* slot, bool enabled)
+{
+    QPushButton* bouton = new QPushButton(nom, widgetParent);
+    bouton->setEnabled(enabled);
+    layoutParent->addWidget(bouton);
+    connect(bouton, signal, receiver, slot);
+    
+    return bouton;
+}             
+/*
+void FenetrePrincipale::creationToolBar()
+{
+    QToolBar* barreDOutil=new QToolBar(this);
+    barreDOutil->addAction(actionAvancerTemps);
+    
+}
+
+
 
 /*
 FenetrePrincipale::FenetrePrincipale(const FenetrePrincipale& orig) {

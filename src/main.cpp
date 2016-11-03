@@ -12,7 +12,7 @@
  */
 
 
-#include "./src/librairiesQt.hpp"
+#include "librairiesQt.hpp"
 
 
 int main(int argc, char *argv[]) {
@@ -22,6 +22,11 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 //Ferme ferme;
     FenetrePrincipale fenPrincipale;// = new FenetrePrincipale();
+    fenPrincipale.show();
+    FenetreNouvelleRace fenetreNouvelleRace;
+    fenetreNouvelleRace.show();
+    FenetreNouvelElevage fenetreNouvelElevage;
+    fenetreNouvelElevage.show();
     
     /*QWidget *firstPageWidget = new QWidget;
     QWidget *secondPageWidget = new QWidget;
@@ -51,7 +56,7 @@ int main(int argc, char *argv[]) {
     bouton2.show();
     bouton.show();*/
     //QQuickWindow fenetre();
-    fenPrincipale.show();
+    
     
     return app.exec();
 }

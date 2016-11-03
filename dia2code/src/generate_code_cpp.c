@@ -24,7 +24,7 @@
 #include "decls.h"
 #include "includes.h"
 
-#define SPEC_EXT "h"
+#define SPEC_EXT "hpp"
 #define BODY_EXT "cpp"
 
 #define eq  !strcmp
