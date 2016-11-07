@@ -19,6 +19,7 @@
 #include <QBoxLayout>
 #include <QComboBox>
 #include <QCoreApplication>
+#include <QDoubleValidator>
 #include <QFormLayout>
 #include <QIcon>
 #include <QLabel>
@@ -28,9 +29,12 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QSpinBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QStackedLayout>
 #include <QStatusBar>
 #include <QString>
@@ -48,6 +52,7 @@
 #include <vector>
 
 #include "FenetrePrincipale.hpp"
+//#include "FenetrePremiereOuverture"
 /*
 #include "Animal.hpp"
 #include "AnimalFemelle.hpp"
@@ -61,7 +66,6 @@
 #include "Rendu.hpp"
 #include "Temps.hpp"
 //*/
-
 
 
 
