@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
         
     }//*/
 //Ferme ferme;
-    FenetrePrincipale fenPrincipale;// = new FenetrePrincipale();
+    FenetrePrincipale fenPrincipale; // = new FenetrePrincipale();
     fenPrincipale.show();
     FenetreNouvelleRace fenetreNouvelleRace;
     fenetreNouvelleRace.show();
