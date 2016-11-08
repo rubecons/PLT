@@ -20,7 +20,8 @@ ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 # Generate headers
 set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
-exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/UMLprojet.dia)
+exec_program(${DIA2CODE} ARGS -d ../src -ns Etats,Rendu -t cpp ../src/UMLprojet.dia)
+#exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/render.dia)
 
 # Sources
 file(GLOB_RECURSE main_sources src/*.cpp)
@@ -29,16 +30,13 @@ file(GLOB_RECURSE main_sources src/*.cpp)
 # Executables
 add_executable(run ${main_sources})
 
-# SFML
-if(WIN32)
-set(SFML_ROOT "D:/Utils/SFML-2.3")
-set(CMAKE_MODULE_PATH "${SFML_ROOT}/cmake/Modules" ${CMAKE_MODULE_PATH})
-else(WIN32)
-SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
-endif(WIN32)
-find_package(SFML 2 COMPONENTS graphics window system)
-if(SFML_FOUND)
-  include_directories(${SFML_INCLUDE_DIR})
-  target_link_libraries(run ${SFML_LIBRARIES})
-endif()
+# QT 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+find_package(Qt5 COMPONENTS Gui Core Widgets)
+
+# Dans le cas où il y a des fichiers ressources QT
+#QT5_ADD_RESOURCES(RC_PACKAGE src/ressources.qrc)
+
+target_link_libraries(run Qt5::Widgets Qt5::Core Qt5::Gui)

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "Race.hpp"
+#include "./Etats/Race.h"
 
 Race::Race ()
 {

@@ -12,9 +12,16 @@
  */
 
 
-#include "librairiesQt.hpp"
-#include "DbManager.hpp"
-#include "FenetrePremiereOuverture.hpp"
+//#include "librairiesQt.hpp"
+//#include "DbManager.h"
+#include "./Rendu/FenetrePremiereOuverture.h"
+
+
+
+
+
+
+
 
 int main(int argc, char *argv[]) {
     // initialize resources, if needed
@@ -22,7 +29,7 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
     
-    DbManager* dbConn;
+    /*DbManager* dbConn;
     
     try
     {
@@ -35,31 +42,32 @@ int main(int argc, char *argv[]) {
             QMessageBox::critical(NULL, QObject::tr("Erreur Fatale"), QObject::tr("La base de donnée n'a pas pu être ouverte ! "), QMessageBox::Ok, QMessageBox::Ok);
             return 1;
         }
-    }
+    }//*/
     //dbConn->chargerFerme();
     
     FenetrePremiereOuverture* feneteInit= new FenetrePremiereOuverture();//dbConn);
-        
-    //if(!(dbConn->chargerFerme(feneteInit)))
-    //{
+    feneteInit->show();
+    /*
+    if(!(dbConn->chargerFerme(feneteInit)))
+    {
         //FenetrePremiereOuverture feneteInit;
-        feneteInit->show();
+        
         
         //if (feneteInit->enregistrerActif==true && feneteInit->getBudget()<0 && feneteInit->getEmprunts()<0)
         
-        /*
+        
         while (feneteInit->getBudget()<0 && feneteInit->getEmprunts()<0)
         {
             
             double budget=feneteInit->getBudget();
             double emprunt=feneteInit->getEmprunts();
             dbConn->chargerFerme(feneteInit);
-        }//*/
+        }
         
         
-    //}//*/
+    }//*/
 //Ferme ferme;
-/*    FenetrePrincipale fenPrincipale;// = new FenetrePrincipale();
+    FenetrePrincipale fenPrincipale;// = new FenetrePrincipale();
     fenPrincipale.show();
     FenetreNouvelleRace fenetreNouvelleRace;
     fenetreNouvelleRace.show();

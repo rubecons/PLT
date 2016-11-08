@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-#include "Temps.hpp"
+#include "./Etats/Temps.h"
 
 Temps::Temps()//à coder de toute urgence
 {

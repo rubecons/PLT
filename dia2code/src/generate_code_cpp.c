@@ -24,7 +24,7 @@
 #include "decls.h"
 #include "includes.h"
 
-#define SPEC_EXT "hpp"
+#define SPEC_EXT "h"
 #define BODY_EXT "cpp"
 
 #define eq  !strcmp
@@ -589,6 +589,52 @@ struct stdlib_includes {
    int thread;
    int mutex;
    int sfmlGraphics;
+  int QAction;
+  int QApplication;
+  int QBoxLayout;
+  int QComboBox;
+  int QCoreApplication;
+  int QDoubleValidator;
+  int QFormLayout;
+  int QIcon;
+  int QLabel;
+  int QLineEdit;
+  int QListWidget;
+  int QListWidgetItem;
+  int QMainWindow;
+  int QMenu;
+  int QMenuBar;
+  int QMessageBox;
+  int QPushButton;
+  int QScrollArea;
+  int QSpinBox;
+  int QSqlDatabase;
+  int QSqlQuery;
+  int QStackedLayout;
+  int QStatusBar;
+  int QString;
+  int Qt;
+  int QToolBar;
+  int QtSql;
+  int QHBoxLayout;
+  int QVBoxLayout;
+  int QWidget;
+  int QWidgetAction;
+
+int race;
+int elevage;
+int animal;
+int ferme;
+int animalMale;
+int animalFemelle;
+int temps;
+
+int fenetreNouvelleBete;
+int fenetreNouvelElevage;
+int fenetrePrincipale;
+int fenetrePremiereOuverture;
+int fenetreNouvelleRace;
+
 };
 
 void print_include_stdlib(struct stdlib_includes* si,char* name) {
@@ -673,6 +719,178 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include <SFML/Graphics.hpp>\n");
            si->sfmlGraphics = 1;
        }       
+	 if (!si->QAction && strstr(name,"QAction")) {
+           print ("#include <QAction>\n");
+           si->QAction = 1;
+       }
+	if (!si->QApplication && strstr(name,"QApplication")) {
+           print ("#include <QApplication>\n");
+           si->QApplication = 1;
+       }
+	if (!si->QBoxLayout && strstr(name,"QBoxLayout")) {
+           print ("#include <QBoxLayout>\n");
+           si->QBoxLayout = 1;
+       }
+	if (!si->QComboBox && strstr(name,"QComboBox")) {
+           print ("#include <QComboBox>\n");
+           si->QComboBox = 1;
+       }
+	if (!si->QCoreApplication && strstr(name,"QCoreApplication")) {
+           print ("#include <QCoreApplication>\n");
+           si->QCoreApplication = 1;
+       }
+	if (!si->QDoubleValidator && strstr(name,"QDoubleValidator")) {
+           print ("#include <QDoubleValidator>\n");
+           si->QDoubleValidator = 1;
+       }
+	if (!si->QFormLayout && strstr(name,"QFormLayout")) {
+           print ("#include <QFormLayout>\n");
+           si->QFormLayout = 1;
+       }
+	if (!si->QIcon && strstr(name,"QIcon")) {
+           print ("#include <QIcon>\n");
+           si->QIcon = 1;
+       }
+	if (!si->QLabel && strstr(name,"QLabel")) {
+           print ("#include <QLabel>\n");
+           si->QLabel = 1;
+       }
+	if (!si->QLineEdit && strstr(name,"QLineEdit")) {
+           print ("#include <QLineEdit>\n");
+           si->QLineEdit = 1;
+       }
+	if (!si->QListWidget && strstr(name,"QListWidget")) {
+           print ("#include <QListWidget>\n");
+           si->QListWidget = 1;
+       }
+	if (!si->QListWidgetItem && strstr(name,"QListWidgetItem")) {
+           print ("#include <QListWidgetItem>\n");
+           si->QListWidgetItem = 1;
+       }
+	if (!si->QMainWindow && strstr(name,"QMainWindow")) {
+           print ("#include <QMainWindow>\n");
+           si->QMainWindow = 1;
+       }
+	if (!si->QMenu && strstr(name,"QMenu")) {
+           print ("#include <QMenu>\n");
+           si->QMenu = 1;
+       }
+	if (!si->QMenuBar && strstr(name,"QMenuBar")) {
+           print ("#include <QMenuBar>\n");
+           si->QMenuBar = 1;
+       }
+	if (!si->QMessageBox && strstr(name,"QMessageBox")) {
+           print ("#include <QMessageBox>\n");
+           si->QMessageBox = 1;
+       }
+	if (!si->QPushButton && strstr(name,"QPushButton")) {
+           print ("#include <QPushButton>\n");
+           si->QPushButton = 1;
+       }
+	if (!si->QScrollArea && strstr(name,"QScrollArea")) {
+           print ("#include <QScrollArea>\n");
+           si->QScrollArea = 1;
+       }
+	if (!si->QSpinBox && strstr(name,"QSpinBox")) {
+           print ("#include <QSpinBox>\n");
+           si->QSpinBox = 1;
+       }
+	if (!si->QSqlDatabase && strstr(name,"QSqlDatabase")) {
+           print ("#include <QSqlDatabase>\n");
+           si->QSqlDatabase = 1;
+       }
+	if (!si->QSqlQuery && strstr(name,"QSqlQuery")) {
+           print ("#include <QSqlQuery>\n");
+           si->QSqlQuery = 1;
+       }
+	if(!si->QStackedLayout && strstr(name,"QStackedLayout")) {
+           print ("#include <QStackedLayout>\n");
+           si->QStackedLayout = 1;
+       }
+	if (!si->QStatusBar && strstr(name,"QStatusBar")) {
+           print ("#include <QStatusBar>\n");
+           si->QStatusBar = 1;
+       }
+	if (!si->QString && strstr(name,"QString")) {
+           print ("#include <QString>\n");
+           si->QString = 1;
+       }
+	if (!si->Qt && strstr(name,"Qt")) {
+           print ("#include <Qt>\n");
+           si->Qt = 1;
+       }
+	if (!si->QToolBar && strstr(name,"QToolBar")) {
+           print ("#include <QToolBar>\n");
+           si->QToolBar = 1;
+       }
+	if (!si->QtSql && strstr(name,"QtSql")) {
+           print ("#include <QtSql>\n");
+           si->QtSql = 1;
+       }
+	if (!si->QHBoxLayout && strstr(name,"QHBoxLayout")) {
+           print ("#include <QHBoxLayout>\n");
+           si->QHBoxLayout = 1;
+       }
+	if (!si->QVBoxLayout && strstr(name,"QVBoxLayout")) {
+           print ("#include <QVBoxLayout>\n");
+           si->QVBoxLayout = 1;
+       }
+	if (!si->QWidget && strstr(name,"QWidget")) {
+           print ("#include <QWidget>\n");
+           si->QWidget = 1;
+       }
+	if (!si->QWidgetAction && strstr(name,"QWidgetAction")) {
+           print ("#include <QWidgetAction>\n");
+           si->QWidgetAction = 1;
+       }
+	if (!si->race && strstr(name,"Race")) {
+           print ("#include <Race.h>\n");
+           si->race = 1;
+	}
+	if (!si->elevage && strstr(name,"Elevage")) {
+           print ("#include <Elevage.h>\n");
+           si->elevage = 1;
+       }
+	if (!si->animal && strstr(name,"Animal")) {
+           print ("#include <Animal.h>\n");
+           si->animal = 1;
+	 }
+	if (!si->ferme && strstr(name,"Ferme")) {
+           print ("#include <Ferme.h>\n");
+           si->ferme = 1;
+	 }
+	if (!si->animalMale && strstr(name,"AnimalMale")) {
+           print ("#include <AnimalMale.h>\n");
+           si->animalMale = 1;
+       }
+	if (!si->animalFemelle && strstr(name,"AnimalFemelle")) {
+           print ("#include <AnimalFemelle.h>\n");
+           si->animalFemelle = 1;
+       }
+	if (!si->temps && strstr(name,"Temps")) {
+           print ("#include <Temps.h>\n");
+           si->temps = 1;
+       }
+if (!si->fenetreNouvelleBete && strstr(name,"FenetreNouvelleBete")) {
+           print ("#include <FenetreNouvelleBete.h>\n");
+           si->fenetreNouvelleBete = 1;
+       }
+if (!si->fenetreNouvelElevage && strstr(name,"FenetreNouvelElevage")) {
+           print ("#include <FenetreNouvelElevage.h>\n");
+           si->fenetreNouvelElevage = 1;
+       }
+if (!si->fenetrePrincipale && strstr(name,"FenetrePrincipale")) {
+           print ("#include <FenetrePrincipale.h>\n");
+           si->fenetrePrincipale = 1;
+       }
+if (!si->fenetrePremiereOuverture && strstr(name,"FenetrePremiereOuverture")) {
+           print ("#include <FenetrePremiereOuverture.h>\n");
+           si->fenetrePremiereOuverture = 1;
+       }
+if (!si->fenetreNouvelleRace && strstr(name,"FenetreNouvelleRace")) {
+           print ("#include <FenetreNouvelleRace.h>\n");
+           si->fenetreNouvelleRace = 1;
+       }
     }
 }
 

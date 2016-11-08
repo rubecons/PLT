@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "FenetreNouvelleRace.hpp"
+#include "./Rendu/FenetreNouvelleRace.h"
 #define DISTINCTIONMALEFEMELLE
 FenetreNouvelleRace::FenetreNouvelleRace()
 {
@@ -125,6 +125,11 @@ FenetreNouvelleRace::FenetreNouvelleRace()
             nombreEnfantsPortee->setMaximum(15);
             nombreEnfantsPortee->setSuffix(" / portée");
         
+            QSpinBox* poidsMoyenNaissance= new QSpinBox;//("Nom de la race");
+            formulaireNouvelleRace->addRow("Poids moyen à la naissance", poidsMoyenNaissance);
+            poidsMoyenNaissance->setMaximum(50);
+            poidsMoyenNaissance->setSuffix(" kg");
+            
             QDoubleSpinBox* prixVenteKilo= new QDoubleSpinBox;//("Nom de la race");
             formulaireNouvelleRace->addRow("Prix vente au Kg", prixVenteKilo);
             prixVenteKilo->setMaximum(30);

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "Animal.hpp"
+#include "./Etats/Animal.h"
 
 /*Animal () : 
 Animal ()

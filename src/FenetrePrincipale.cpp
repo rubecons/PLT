@@ -11,7 +11,7 @@
  * Created on 20 octobre 2016, 01:27
  */
 
-#include "FenetrePrincipale.hpp"
+#include "./Rendu/FenetrePrincipale.h"
 
 
 FenetrePrincipale::FenetrePrincipale()
