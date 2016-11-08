@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-#include "./Etats/Race.h"
+#include "Race.h"
+
+namespace Etats{
 
 Race::Race ()
 {
@@ -44,7 +46,7 @@ int Race::getAgeMoyenMaturite (bool sexe)
    // else return *(ageMoyenMaturite+1);
 }
 
-double Race::getPrixNourritureVeterinaire (bool sexe)
+double Race::getPrixNourritureVeterinaireParKilo (bool sexe)
 {
  //   if (sexe==true)return *prixNourritureVeterinaire;
  //   else return *(prixNourritureVeterinaire+1);
@@ -108,7 +110,7 @@ void Race::setAgeMoyenMaturite (bool sexe, int age)
  //   else *(ageMoyenMaturite+1)=age;
 }
 
-void Race::setPrixNourritureVeterinaire (bool sexe, double prix)
+void Race::setPrixNourritureVeterinaireParKilo (bool sexe, double prix)
 {
   //  if (sexe==true) *prixNourritureVeterinaire=prix;
   //  else *(prixNourritureVeterinaire+1)=prix;
@@ -144,6 +146,6 @@ void Race::setNbGenerations (int nbGen)
     nbGenerations=nbGen;
 }
 
-
+}
 
 

@@ -11,8 +11,21 @@
  * Created on 6 novembre 2016, 05:02
  */
 //#include "librairiesQt.hpp"
-#include "./Rendu/FenetrePremiereOuverture.h"
+#include "FenetrePremiereOuverture.h"
 //#include "DbManager.hpp"
+#include <QApplication>
+#include <QComboBox>//
+//#include <QDoubleSpinBox>
+#include <QFormLayout>//
+#include <QFrame>//
+#include <QHBoxLayout>//
+#include <QLabel>//
+#include <QLineEdit>//
+#include <QMessageBox>
+//#include <QSpinBox>
+#include <QVBoxLayout>//
+
+namespace Rendu{
 
 FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
     this->setWindowTitle(QString("Initialisation"));
@@ -44,7 +57,7 @@ FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
             selectionEmprunts->addItem("Choisir");
             selectionEmprunts->addItem("Oui");
             selectionEmprunts->addItem("Non");
-            formulaireCreationFerme->addRow("Avez-vous emprunté de l'argent ?", selectionEmprunts);
+            f./Rendu/ormulaireCreationFerme->addRow("Avez-vous emprunté de l'argent ?", selectionEmprunts);
             //*/
             
             QLineEdit* emprunts= new QLineEdit("0");//("Nom de la race");
@@ -58,15 +71,15 @@ FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
         QHBoxLayout* layoutDate = new QHBoxLayout;
         layoutVerticalPremiereOuverture->addLayout(layoutDate);
             
-            layoutDate->addWidget(QLabel(Date :));
-            QComboBox* mois = new QComboBox(QStringList(QList("janvier").append("fevrier").append("mars").append("avril").append("mai").append("juin").append("juillet").append("août").append("septembre").append("octobre").append("novembre").append("décembre")));layoutDate->addWidget(mois);
-            QLineEdit* annee = new QLineEdit();annee->setValidator(QIntValidator(2016, 2050));layoutDate->addWidget(annee);
+            layoutDate->addWidget(new QLabel(tr("Date :")));
+            QComboBox* mois = new QComboBox(this);mois->addItem("janvier");mois->addItem("fevrier");mois->addItem("mars");mois->addItem("avril");mois->addItem("mai");mois->addItem("juin");mois->addItem("juillet");mois->addItem("août");mois->addItem("septembre");mois->addItem("octobre");mois->addItem("novembre");mois->addItem("décembre");layoutDate->addWidget(mois);
+            QLineEdit* annee = new QLineEdit();annee->setValidator(new QIntValidator(2016, 2050));layoutDate->addWidget(annee);
         
         QHBoxLayout* layoutBoutons = new QHBoxLayout;
         layoutVerticalPremiereOuverture->addLayout(layoutBoutons);
     
             QPushButton* boutonAnnuler =creationBoutonDansLayout("Annuler", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(annulation()), true);
-            QPushButton* boutonEnregistrerFerme=creationBoutonDansLayout("Enregistrer", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(enregistrer(dbConn, budget->text()->toDouble, emprunts->text()->toDouble)), true);
+            QPushButton* boutonEnregistrerFerme=creationBoutonDansLayout("Enregistrer", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(enregistrer( budget->text()->toDouble, emprunts->text()->toDouble)), true);
 
 }
 
@@ -97,7 +110,7 @@ void FenetrePremiereOuverture::annulation()
 }
 //*/
 
-void FenetrePremiereOuverture::enregistrer(DbManager* dbC, double budg, double empr)
+void FenetrePremiereOuverture::enregistrer(/*DbManager* dbC,*/ double budg, double empr)
 {
     this->budget=budg;
     this->emprunts=empr;
@@ -123,3 +136,4 @@ double FenetrePremiereOuverture::getEmprunts()
 
     return ;
 }*/
+}

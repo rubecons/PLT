@@ -843,7 +843,7 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include <QWidgetAction>\n");
            si->QWidgetAction = 1;
        }
-	if (!si->race && strstr(name,"Race")) {
+	/*if (!si->race && strstr(name,"Race")) {
            print ("#include <Race.h>\n");
            si->race = 1;
 	}
@@ -890,7 +890,7 @@ if (!si->fenetrePremiereOuverture && strstr(name,"FenetrePremiereOuverture")) {
 if (!si->fenetreNouvelleRace && strstr(name,"FenetreNouvelleRace")) {
            print ("#include <FenetreNouvelleRace.h>\n");
            si->fenetreNouvelleRace = 1;
-       }
+       }*/
     }
 }
 
@@ -940,7 +940,15 @@ gen_namespace(batch *b, declaration *nsd) {
 
             struct stdlib_includes si;
             memset(&si, 0, sizeof (struct stdlib_includes));
-
+            
+            // Parents
+            if (d->u.this_class->parents != NULL) {
+                umlclasslist parent = d->u.this_class->parents;
+                while (parent != NULL) {
+                    print_include_stdlib(&si, fqname (parent, 0));
+                    parent = parent->next;
+                }
+            }
             // Attributes
             umlattrlist umla = d->u.this_class->key->attributes;
             while (umla != NULL) {
@@ -1013,7 +1021,8 @@ gen_namespace(batch *b, declaration *nsd) {
                         print("#include \"%s/%s.%s\"\n", incfile->package, incfile->name, file_ext);
                     }
                 } else {
-                    print("#include \"%s.%s\"\n", incfile->name, file_ext);
+                    // Cas pas de namespace
+                    //print("#include \"%s.%s\"\n", incfile->name, file_ext);
                 }
                 incfile = incfile->next;
             }
@@ -1026,7 +1035,7 @@ gen_namespace(batch *b, declaration *nsd) {
         indentlevel--;
         print("};\n\n");
 
-        indentlevel = 0; /* just for safety (should be 0 already) */
+        indentlevel = 0; /* gen_namespacejust for safety (should be 0 already) */
         print("#endif\n");
         fclose(spec);
 
@@ -1120,6 +1129,10 @@ generate_code_cpp (batch *b)
 #endif
         } else {         /* dk_class */
             name = d->u.this_class->key->name;
+            if (b->namespaces) {
+                d = d->next;
+                continue;                
+            }
 #if VERBOSE_LEVEL >= 1
             printf("generate_code_cpp(): file '%s'",name);
 #endif

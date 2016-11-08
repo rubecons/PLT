@@ -11,8 +11,12 @@
  * Created on 20 octobre 2016, 01:27
  */
 
-#include "./Rendu/FenetrePrincipale.h"
+#include "FenetrePrincipale.h"
+#include <QApplication>
+#include <QLabel>
+#include <QScrollArea>
 
+namespace Rendu{
 
 FenetrePrincipale::FenetrePrincipale()
 {
@@ -23,42 +27,43 @@ FenetrePrincipale::FenetrePrincipale()
     setGeometry(0, 25, 800, 450);
     setWindowIcon(QIcon("./rapport/taureau.png"));
 
-    creationMenuBar();
+    QMenuBar* menuBarre=creationMenuBar();
     //creationToolBar();
-    creationStatusBar();
+    QStatusBar* barreStatus=creationStatusBar();
     creationZoneCentrale();
 }
 
-void FenetrePrincipale::creationMenuBar()
+QMenuBar* FenetrePrincipale::creationMenuBar()
 {
-
+    QMenuBar* menuBarre=new QMenuBar;
     //ici on créée les différents menus de la barre de menus, on fait appel aux fonctions qui crééent des sous-menus et des actions de menus
     QMenu* menuFerme=new QMenu("&Ferme");
-    menuBar()->addMenu(menuFerme);
+    menuBarre->addMenu(menuFerme);
+    //menuBar()->addMenu(menuFerme);
         QMenu* menuNouveau=creationMenu(menuFerme, ("Nouveau"));
-            QAction* actionNouvelElevage=creationActionDansMenu(menuNouveau, "Nouvel Élevage", this, QKeySequence("Ctrl+E"), SIGNAL(triggered()), qApp, SLOT());
-            QAction* actionNouvelleRace=creationActionDansMenu(menuNouveau, "Nouvelle Race", this, QKeySequence("Ctrl+R"), SIGNAL(triggered()), qApp, SLOT());
-            QAction* actionNouvelleBete=creationActionDansMenu(menuNouveau, "Nouvelle Bête", this, QKeySequence("Ctrl+B"), SIGNAL(triggered()), qApp, SLOT());
+            QAction* actionNouvelElevage=creationActionDansMenu(menuNouveau, "Nouvel Élevage", this, QKeySequence("Ctrl+E"), SIGNAL(triggered()), NULL, SLOT());
+            QAction* actionNouvelleRace=creationActionDansMenu(menuNouveau, "Nouvelle Race", this, QKeySequence("Ctrl+R"), SIGNAL(triggered()), NULL, SLOT());
+            QAction* actionNouvelleBete=creationActionDansMenu(menuNouveau, "Nouvelle Bête", this, QKeySequence("Ctrl+B"), SIGNAL(triggered()), NULL, SLOT());
 
-        QAction* actionEnregistrer=creationActionDansMenu(menuFerme, "Enregistrer", this, QKeySequence("Ctrl+S"), SIGNAL(triggered()), qApp, SLOT());
-        QAction* actionStatistiqueFerme=creationActionDansMenu(menuFerme, "Statistiques de la ferme", this, QKeySequence("Ctrl+F"), SIGNAL(triggered()), qApp, SLOT());
-        QAction* actionAvancerTemps=creationActionDansMenu(menuFerme, "Unité de temps suivante", this, QKeySequence("Enter"), SIGNAL(triggered()), qApp, SLOT());
+        QAction* actionEnregistrer=creationActionDansMenu(menuFerme, "Enregistrer", this, QKeySequence("Ctrl+S"), SIGNAL(triggered()), NULL, SLOT());
+        QAction* actionStatistiqueFerme=creationActionDansMenu(menuFerme, "Statistiques de la ferme", this, QKeySequence("Ctrl+F"), SIGNAL(triggered()), NULL, SLOT());
+        QAction* actionAvancerTemps=creationActionDansMenu(menuFerme, "Unité de temps suivante", this, QKeySequence("Enter"), SIGNAL(triggered()), NULL, SLOT());
         actionAvancerTemps->setIcon(QIcon("./rapport/ico_play_gris.png"));
         
     QMenu* menuBudget= new QMenu("&Budget");
-    menuBar()->addMenu(menuBudget);
-        QAction *actionEmprunter=creationActionDansMenu(menuBudget, "Emprunter", this, SIGNAL(triggered()), qApp, SLOT());
+    menuBarre->addMenu(menuBudget);
+    //menuBar()->addMenu(menuBudget);
+        QAction *actionEmprunter=creationActionDansMenu(menuBudget, "Emprunter", this, SIGNAL(triggered()), NULL, SLOT());
     
     QMenu* menuAide=new QMenu("&Aide");
-    menuBar()->addMenu(menuAide);//*/
+    menuBarre->addMenu(menuAide);
+    //menuBar()->addMenu(menuAide);//*/
     //QMenuBar *barreMenu=new QMenuBar();
     
     //ici on place les différents menus créés plus haut dans la menubar
-    
-    
-    //*/
+   //*/
         QAction *actionQuitter=creationActionDansMenu(menuAide, "Quitter", this, SIGNAL(triggered()), qApp, SLOT(quit()));
-
+    return menuBarre;
 }
 
 QMenu* FenetrePrincipale::creationMenu(QMenu *menuPere, const QString &nomMenuFils)
@@ -90,7 +95,7 @@ QAction* FenetrePrincipale::creationActionDansMenu(QMenu *menuPere, const QStrin
     return action;
 }
 
-void FenetrePrincipale::creationStatusBar()
+QStatusBar* FenetrePrincipale::creationStatusBar()
 {
     //QStatusBar* barreStatut = new QStatusBar(this);
     QStatusBar* barreStatut = this->statusBar();
@@ -119,6 +124,7 @@ void FenetrePrincipale::creationStatusBar()
     //texteStatusBar -> move(50, 0);//*/
     
     //statusBar() -> addWidget(texteStatusBar, 80);
+    return barreStatut;
 }
 
 void FenetrePrincipale::creationZoneCentrale()
@@ -230,3 +236,4 @@ FenetrePrincipale::FenetrePrincipale(const FenetrePrincipale& orig) {
 FenetrePrincipale::~FenetrePrincipale() {
 }
 */
+}

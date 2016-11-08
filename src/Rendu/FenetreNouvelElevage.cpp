@@ -4,8 +4,17 @@
  * and open the template in the editor.
  */
 
-#include "./Rendu/FenetreNouvelElevage.h"
+#include "FenetreNouvelElevage.h"
+#include <QComboBox>//
 
+#include <QFormLayout>//
+#include <QHBoxLayout>//
+
+#include <QLineEdit>//
+
+#include <QVBoxLayout>//
+
+namespace Rendu{
 
 FenetreNouvelElevage::FenetreNouvelElevage()
 {
@@ -45,4 +54,6 @@ QPushButton* FenetreNouvelElevage::creationBoutonDansLayout(const QString &nom, 
     connect(bouton, signal, receiver, slot);
     
     return bouton;
+}
+
 }

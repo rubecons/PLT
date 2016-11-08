@@ -14,13 +14,17 @@
 
 //#include "librairiesQt.hpp"
 //#include "DbManager.h"
-#include "./Rendu/FenetrePremiereOuverture.h"
+#include <QApplication>
+#include "Rendu/FenetrePremiereOuverture.h"
+#include "Rendu/FenetreNouvelElevage.h"
+#include "Rendu/FenetrePrincipale.h"
+#include "Rendu/FenetreNouvelleBete.h"
+#include "Rendu/FenetreNouvelleRace.h"
 
 
 
-
-
-
+using namespace Rendu;
+//using namespace Etats;
 
 
 int main(int argc, char *argv[]) {

@@ -4,8 +4,20 @@
  * and open the template in the editor.
  */
 
-#include "./Rendu/FenetreNouvelleRace.h"
+#include "FenetreNouvelleRace.h"
+#include <QDoubleSpinBox>
+#include <QFormLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QVBoxLayout>
+//#include <>
+//#include <>
 #define DISTINCTIONMALEFEMELLE
+
+namespace Rendu{
+
 FenetreNouvelleRace::FenetreNouvelleRace()
 {
     //QWidget* fenetreNouvRace = new QWidget;
@@ -168,3 +180,5 @@ FenetreNouvelleRace::
 FenetreNouvelleRace::
 FenetreNouvelleRace::
 //*/
+
+}

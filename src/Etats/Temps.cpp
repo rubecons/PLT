@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-#include "./Etats/Temps.h"
+#include "Temps.h"
+
+namespace Etats {
 
 Temps::Temps()//à coder de toute urgence
 {
@@ -46,3 +48,6 @@ void Temps::upMois ()
     mois=mois+1%12;
     if(mois==1)annee++;
 }
+
+}
+

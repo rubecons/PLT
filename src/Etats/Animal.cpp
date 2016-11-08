@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-#include "./Etats/Animal.h"
-
+#include "Animal.h"
+namespace Etats{
 /*Animal () : 
 Animal ()
 ~Animal () {
@@ -85,4 +85,6 @@ std::vector<int> getAncetres ()
 void Animal::setAncetres (std::shared_ptr<std::vector<int>> ancetresPere, std::shared_ptr<std::vector<int>> ancetresMere)
 {
     
+}
+
 }
