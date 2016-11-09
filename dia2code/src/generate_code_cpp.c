@@ -310,6 +310,11 @@ gen_class (umlclassnode *node)
                     emit ("static ");
                 }
                 emit ("%s %s", umla->key.type, umla->key.name);
+                //à supprimer si ca ne convient pas
+                if (strlen(umla->key.value)>0){
+                    emit(" = %s", umla->key.value);
+                }//*/
+                
                 emit (";\n");
                 umla = umla->next;
             }
