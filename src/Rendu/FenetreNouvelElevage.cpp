@@ -56,4 +56,9 @@ QPushButton* FenetreNouvelElevage::creationBoutonDansLayout(const QString &nom, 
     return bouton;
 }
 
+FenetreNouvelElevage::~FenetreNouvelElevage()
+{
+    
+}/*//*/
+
 }

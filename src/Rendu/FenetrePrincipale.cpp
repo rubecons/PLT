@@ -130,7 +130,7 @@ QStatusBar* FenetrePrincipale::creationStatusBar()
 void FenetrePrincipale::creationZoneCentrale()
 {
     QWidget* zoneCentrale = new QWidget;            //on créée un widget pour la zone centrale
-    setCentralWidget(zoneCentrale);                 //on dit que la zone centrale est le wiget précedemment créé
+    this->setCentralWidget(zoneCentrale);                 //on dit que la zone centrale est le wiget précedemment créé
     
     QHBoxLayout* layoutPrincipal= new QHBoxLayout;  //on créée un layout horizontal
     zoneCentrale->setLayout(layoutPrincipal);//*/   //on intègre le layout horizontal dans la zone centrale
@@ -232,8 +232,8 @@ void FenetrePrincipale::creationToolBar()
 /*
 FenetrePrincipale::FenetrePrincipale(const FenetrePrincipale& orig) {
 }
-
+*/
 FenetrePrincipale::~FenetrePrincipale() {
 }
-*/
+
 }

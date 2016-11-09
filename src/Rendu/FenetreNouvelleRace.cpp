@@ -172,9 +172,9 @@ QPushButton* FenetreNouvelleRace::creationBoutonDansLayout(const QString &nom, Q
     return bouton;
 }             
         
-/*        
-FenetreNouvelleRace::
-FenetreNouvelleRace::
+        
+FenetreNouvelleRace::~FenetreNouvelleRace(){}
+/*FenetreNouvelleRace::
 FenetreNouvelleRace::
 FenetreNouvelleRace::
 FenetreNouvelleRace::

@@ -49,8 +49,7 @@ int main(int argc, char *argv[]) {
     }//*/
     //dbConn->chargerFerme();
     
-    FenetrePremiereOuverture* feneteInit= new FenetrePremiereOuverture();//dbConn);
-    feneteInit->show();
+
     /*
     if(!(dbConn->chargerFerme(feneteInit)))
     {
@@ -73,6 +72,8 @@ int main(int argc, char *argv[]) {
 //Ferme ferme;
     FenetrePrincipale fenPrincipale; // = new FenetrePrincipale();
     fenPrincipale.show();
+    FenetrePremiereOuverture feneteInit;//dbConn);
+    feneteInit.show();
     FenetreNouvelleRace fenetreNouvelleRace;
     fenetreNouvelleRace.show();
     FenetreNouvelElevage fenetreNouvelElevage;

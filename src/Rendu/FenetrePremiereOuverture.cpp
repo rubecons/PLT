@@ -22,6 +22,7 @@
 #include <QLabel>//
 #include <QLineEdit>//
 #include <QMessageBox>
+#include <QObject>
 //#include <QSpinBox>
 #include <QVBoxLayout>//
 
@@ -84,11 +85,11 @@ FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
 }
 
 /*/FenetrePremiereOuverture::FenetrePremiereOuverture(const FenetrePremiereOuverture& orig) {
-//}
+//}//*/
 
 FenetrePremiereOuverture::~FenetrePremiereOuverture() {
     
-}//*/
+}
 
 QPushButton* FenetrePremiereOuverture::creationBoutonDansLayout(const QString &nom, QWidget* widgetParent, QLayout* layoutParent, const char* signal, QObject* receiver, const char* slot, bool enabled)
 {
