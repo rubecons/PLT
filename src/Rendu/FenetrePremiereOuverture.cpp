@@ -69,13 +69,13 @@ FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
             formulaireCreationFerme->addRow("Argent déjà emprunté restant à rembourser (€):", emprunts);
             
             
-        QHBoxLayout* layoutDate = new QHBoxLayout;
+        /*QHBoxLayout* layoutDate = new QHBoxLayout;
         layoutVerticalPremiereOuverture->addLayout(layoutDate);
             
             layoutDate->addWidget(new QLabel(tr("Date :")));
             QComboBox* mois = new QComboBox(this);mois->addItem("janvier");mois->addItem("fevrier");mois->addItem("mars");mois->addItem("avril");mois->addItem("mai");mois->addItem("juin");mois->addItem("juillet");mois->addItem("août");mois->addItem("septembre");mois->addItem("octobre");mois->addItem("novembre");mois->addItem("décembre");layoutDate->addWidget(mois);
             QLineEdit* annee = new QLineEdit();annee->setValidator(new QIntValidator(2016, 2050));layoutDate->addWidget(annee);
-        
+        //*/
         QHBoxLayout* layoutBoutons = new QHBoxLayout;
         layoutVerticalPremiereOuverture->addLayout(layoutBoutons);
     

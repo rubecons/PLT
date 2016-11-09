@@ -15,7 +15,7 @@
 #include <QApplication>
 #include <QLabel>
 #include <QScrollArea>
-
+#include <QMenuBar>
 namespace Rendu{
 
 FenetrePrincipale::FenetrePrincipale()
@@ -27,43 +27,44 @@ FenetrePrincipale::FenetrePrincipale()
     setGeometry(0, 25, 800, 450);
     setWindowIcon(QIcon("./rapport/taureau.png"));
 
-    QMenuBar* menuBarre=creationMenuBar();
+    //QMenuBar* menuBarre=
+    creationMenuBar();
     //creationToolBar();
     QStatusBar* barreStatus=creationStatusBar();
     creationZoneCentrale();
 }
-
-QMenuBar* FenetrePrincipale::creationMenuBar()
+void FenetrePrincipale::creationMenuBar()
+//QMenuBar* FenetrePrincipale::creationMenuBar()
 {
-    QMenuBar* menuBarre=new QMenuBar;
+    //QMenuBar* menuBarre=new QMenuBar;
     //ici on créée les différents menus de la barre de menus, on fait appel aux fonctions qui crééent des sous-menus et des actions de menus
     QMenu* menuFerme=new QMenu("&Ferme");
-    menuBarre->addMenu(menuFerme);
-    //menuBar()->addMenu(menuFerme);
+    //menuBarre->addMenu(menuFerme);
+    menuBar()->addMenu(menuFerme);
         QMenu* menuNouveau=creationMenu(menuFerme, ("Nouveau"));
-            QAction* actionNouvelElevage=creationActionDansMenu(menuNouveau, "Nouvel Élevage", this, QKeySequence("Ctrl+E"), SIGNAL(triggered()), NULL, SLOT());
-            QAction* actionNouvelleRace=creationActionDansMenu(menuNouveau, "Nouvelle Race", this, QKeySequence("Ctrl+R"), SIGNAL(triggered()), NULL, SLOT());
-            QAction* actionNouvelleBete=creationActionDansMenu(menuNouveau, "Nouvelle Bête", this, QKeySequence("Ctrl+B"), SIGNAL(triggered()), NULL, SLOT());
+            QAction* actionNouvelElevage=creationActionDansMenu(menuNouveau, "Nouvel Élevage", this, QKeySequence("Ctrl+E"), SIGNAL(triggered()), qApp, SLOT());
+            QAction* actionNouvelleRace=creationActionDansMenu(menuNouveau, "Nouvelle Race", this, QKeySequence("Ctrl+R"), SIGNAL(triggered()), qApp, SLOT());
+            QAction* actionNouvelleBete=creationActionDansMenu(menuNouveau, "Nouvelle Bête", this, QKeySequence("Ctrl+B"), SIGNAL(triggered()), qApp, SLOT());
 
-        QAction* actionEnregistrer=creationActionDansMenu(menuFerme, "Enregistrer", this, QKeySequence("Ctrl+S"), SIGNAL(triggered()), NULL, SLOT());
-        QAction* actionStatistiqueFerme=creationActionDansMenu(menuFerme, "Statistiques de la ferme", this, QKeySequence("Ctrl+F"), SIGNAL(triggered()), NULL, SLOT());
-        QAction* actionAvancerTemps=creationActionDansMenu(menuFerme, "Unité de temps suivante", this, QKeySequence("Enter"), SIGNAL(triggered()), NULL, SLOT());
+        QAction* actionEnregistrer=creationActionDansMenu(menuFerme, "Enregistrer", this, QKeySequence("Ctrl+S"), SIGNAL(triggered()), qApp, SLOT());
+        QAction* actionStatistiqueFerme=creationActionDansMenu(menuFerme, "Statistiques de la ferme", this, QKeySequence("Ctrl+F"), SIGNAL(triggered()), qApp, SLOT());
+        QAction* actionAvancerTemps=creationActionDansMenu(menuFerme, "Unité de temps suivante", this, QKeySequence("Enter"), SIGNAL(triggered()), qApp, SLOT());
         actionAvancerTemps->setIcon(QIcon("./rapport/ico_play_gris.png"));
         
     QMenu* menuBudget= new QMenu("&Budget");
-    menuBarre->addMenu(menuBudget);
-    //menuBar()->addMenu(menuBudget);
-        QAction *actionEmprunter=creationActionDansMenu(menuBudget, "Emprunter", this, SIGNAL(triggered()), NULL, SLOT());
+    //menuBarre->addMenu(menuBudget);
+    menuBar()->addMenu(menuBudget);
+        QAction *actionEmprunter=creationActionDansMenu(menuBudget, "Emprunter", this, SIGNAL(triggered()), qApp, SLOT());
     
     QMenu* menuAide=new QMenu("&Aide");
-    menuBarre->addMenu(menuAide);
-    //menuBar()->addMenu(menuAide);//*/
+    //menuBarre->addMenu(menuAide);
+    menuBar()->addMenu(menuAide);//*/
     //QMenuBar *barreMenu=new QMenuBar();
     
     //ici on place les différents menus créés plus haut dans la menubar
    //*/
         QAction *actionQuitter=creationActionDansMenu(menuAide, "Quitter", this, SIGNAL(triggered()), qApp, SLOT(quit()));
-    return menuBarre;
+   // return menuBarre;
 }
 
 QMenu* FenetrePrincipale::creationMenu(QMenu *menuPere, const QString &nomMenuFils)
