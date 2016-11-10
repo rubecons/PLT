@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.5)
-project (plt)
-
+project (projet_elevage)
+set(CMAKE_AUTOMOC ON)
 # Directories
 include_directories ("${PROJECT_SOURCE_DIR}/src")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -31,8 +31,8 @@ file(GLOB_RECURSE main_sources src/*.cpp)
 add_executable(run ${main_sources})
 
 # QT 
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 COMPONENTS Gui Core Widgets)
 

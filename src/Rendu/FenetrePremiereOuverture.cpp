@@ -12,6 +12,7 @@
  */
 //#include "librairiesQt.hpp"
 #include "FenetrePremiereOuverture.h"
+//#include "moc_FenetrePremiereOuverture.cpp"
 //#include "DbManager.hpp"
 #include <QApplication>
 #include <QComboBox>//
@@ -80,6 +81,7 @@ FenetrePremiereOuverture::FenetrePremiereOuverture(){//QSqlDatabase* dbConn) {
         layoutVerticalPremiereOuverture->addLayout(layoutBoutons);
     
             QPushButton* boutonAnnuler =creationBoutonDansLayout("Annuler", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(annulation()), true);
+            //QPushButton* boutonAnnuler =creationBoutonDansLayout("Annuler", this, layoutBoutons, SIGNAL(clicked()), qApp, SLOT(quit()), true);
             QPushButton* boutonEnregistrerFerme=creationBoutonDansLayout("Enregistrer", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(enregistrer( budget->text()->toDouble, emprunts->text()->toDouble)), true);
 
 }
