@@ -12,10 +12,10 @@ Temps::Temps()//à coder de toute urgence
     
 }
 
-Temps::Temps(int an, int ms)
+Temps::Temps(int m, int a)
 {
-    annee=an;
-    mois=ms;
+    annee=a;
+    mois=m;
 }
 
 int Temps::getAnnee()

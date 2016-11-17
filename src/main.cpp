@@ -20,18 +20,21 @@
 #include "Rendu/FenetrePrincipale.h"
 #include "Rendu/FenetreNouvelleBete.h"
 #include "Rendu/FenetreNouvelleRace.h"
-
+#include "Etats/Ferme.h"
+#include "Etats/Temps.h"
+#include "Etats/Race.h"
+#include "Etats/Elevage.h"
 
 
 using namespace Rendu;
-//using namespace Etats;
+using namespace Etats;
 
 
 int main(int argc, char *argv[]) {
     // initialize resources, if needed
     // Q_INIT_RESOURCE(resfile);
 
-    QApplication app(argc, argv);
+    //QApplication app(argc, argv);
     
     /*DbManager* dbConn;
     
@@ -69,11 +72,21 @@ int main(int argc, char *argv[]) {
         
         
     }//*/
-//Ferme ferme;
-    FenetrePrincipale fenPrincipale; // = new FenetrePrincipale();
-    fenPrincipale.show();
-    FenetrePremiereOuverture feneteInit;//dbConn);
+    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>(54245,865);
+    std::shared_ptr<Temps> temps= std::make_shared<Temps>(11, 2016);
+    
+    std::shared_ptr<Race> vacheLimousine=std::make_shared<Race>("Bos Taurus Limousin", 264, 264, 1100, 800, 11, 15, 0.55, 0.46, 9, 2, 1, 45, 2.80, 3);
+    
+    std::shared_ptr<Elevage> elevageVache = std::make_shared<Elevage>("Elevage Limousines", vacheLimousine);
+    
+    
+    
+    /*FenetrePremiereOuverture feneteInit(ferme, temps);//dbConn);
     feneteInit.show();
+    
+    FenetrePrincipale fenPrincipale(ferme, temps); // = new FenetrePrincipale();
+    fenPrincipale.show();
+    
     FenetreNouvelleRace fenetreNouvelleRace;
     fenetreNouvelleRace.show();
     FenetreNouvelElevage fenetreNouvelElevage;
@@ -109,5 +122,5 @@ int main(int argc, char *argv[]) {
     //QQuickWindow fenetre();
     
     
-    return app.exec();
+    //return app.exec();
 }

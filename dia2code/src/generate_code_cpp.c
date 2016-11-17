@@ -848,54 +848,54 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include <QWidgetAction>\n");
            si->QWidgetAction = 1;
        }
-	/*if (!si->race && strstr(name,"Race")) {
-           print ("#include <Race.h>\n");
+	if (!si->race && strstr(name,"//Race;")) {
+           print ("#include \"Race.h\"\n");
            si->race = 1;
 	}
-	if (!si->elevage && strstr(name,"Elevage")) {
-           print ("#include <Elevage.h>\n");
+	if (!si->elevage && strstr(name,"//Elevage;")) {
+           print ("#include \"Elevage.h\"\n");
            si->elevage = 1;
        }
-	if (!si->animal && strstr(name,"Animal")) {
-           print ("#include <Animal.h>\n");
+	if (!si->animal && strstr(name,"//Animal;")) {
+           print ("#include \"Animal.h\"\n");
            si->animal = 1;
 	 }
-	if (!si->ferme && strstr(name,"Ferme")) {
-           print ("#include <Ferme.h>\n");
+	if (!si->ferme && strstr(name,"//Ferme;")) {
+           print ("#include \"Ferme.h\"\n");
            si->ferme = 1;
 	 }
-	if (!si->animalMale && strstr(name,"AnimalMale")) {
-           print ("#include <AnimalMale.h>\n");
+	if (!si->animalMale && strstr(name,"//AnimalMale;")) {
+           print ("#include \"AnimalMale.h\"\n");
            si->animalMale = 1;
        }
-	if (!si->animalFemelle && strstr(name,"AnimalFemelle")) {
-           print ("#include <AnimalFemelle.h>\n");
+	if (!si->animalFemelle && strstr(name,"//AnimalFemelle;")) {
+           print ("#include \"AnimalFemelle.h\"\n");
            si->animalFemelle = 1;
        }
-	if (!si->temps && strstr(name,"Temps")) {
-           print ("#include <Temps.h>\n");
+	if (!si->temps && strstr(name,"//Temps;")) {
+           print ("#include \"Temps.h\"\n");
            si->temps = 1;
        }
-if (!si->fenetreNouvelleBete && strstr(name,"FenetreNouvelleBete")) {
-           print ("#include <FenetreNouvelleBete.h>\n");
+if (!si->fenetreNouvelleBete && strstr(name,"//FenetreNouvelleBete;")) {
+           print ("#include \"FenetreNouvelleBete.h\"\n");
            si->fenetreNouvelleBete = 1;
        }
-if (!si->fenetreNouvelElevage && strstr(name,"FenetreNouvelElevage")) {
-           print ("#include <FenetreNouvelElevage.h>\n");
+if (!si->fenetreNouvelElevage && strstr(name,"//FenetreNouvelElevage;")) {
+           print ("#include \"FenetreNouvelElevage.h\"\n");
            si->fenetreNouvelElevage = 1;
        }
-if (!si->fenetrePrincipale && strstr(name,"FenetrePrincipale")) {
-           print ("#include <FenetrePrincipale.h>\n");
+if (!si->fenetrePrincipale && strstr(name,"//FenetrePrincipale;")) {
+           print ("#include \"FenetrePrincipale.h\"\n");
            si->fenetrePrincipale = 1;
        }
-if (!si->fenetrePremiereOuverture && strstr(name,"FenetrePremiereOuverture")) {
-           print ("#include <FenetrePremiereOuverture.h>\n");
+if (!si->fenetrePremiereOuverture && strstr(name,"//FenetrePremiereOuverture;")) {
+           print ("#include \"FenetrePremiereOuverture.h\"\n");
            si->fenetrePremiereOuverture = 1;
        }
-if (!si->fenetreNouvelleRace && strstr(name,"FenetreNouvelleRace")) {
-           print ("#include <FenetreNouvelleRace.h>\n");
+if (!si->fenetreNouvelleRace && strstr(name,"//FenetreNouvelleRace;")) {
+           print ("#include \"FenetreNouvelleRace.h\"\n");
            si->fenetreNouvelleRace = 1;
-       }*/
+       }//*/
     }
 }
 

@@ -5,12 +5,31 @@
  */
 
 #include "Race.h"
+#include<cmath>
 
 namespace Etats{
 
-Race::Race ()
-{
+Race::Race(){}
     
+Race::Race (std::string nom, int esperanceDeVieMale, int esperanceDeVieFemelle, int poidsMoyenAdulteMale, int poidsMoyenAdulteFemelle, int ageMoyenMaturiteMale, int ageMoyenMaturiteFemelle, double prixNourritureVeterinaireParKiloMale, double prixNourritureVeterinaireParKiloFemelle, int dureeGest, int dureeEntre2Gross, int nbEnfants, int poidsNaissance, double prixVenteKg, int nbGen)
+{
+    nomRace= nom;
+    
+    esperanceDeVie={esperanceDeVieMale, esperanceDeVieFemelle};
+    poidsMoyenAdulte={poidsMoyenAdulteMale, poidsMoyenAdulteFemelle};
+    ageMoyenMaturite={ageMoyenMaturiteMale, ageMoyenMaturiteFemelle};
+    prixNourritureVeterinaireParKilo={prixNourritureVeterinaireParKiloMale, prixNourritureVeterinaireParKiloFemelle};
+    dureeGestation=dureeGest;
+    dureeEntre2Grossesses=dureeEntre2Gross;
+    nbEnfantsPortee=nbEnfants;
+    poidsMoyenNaissance=poidsNaissance;
+    prixVenteKilo=prixVenteKg;
+    nbGenerations=nbGen;
+    //idRace=;
+    for(int i=1; i<=nbGenerations; i++)
+    {
+        nbAncetres+=exp2(i);
+    }
 }
 
 Race::~Race ()
@@ -18,12 +37,12 @@ Race::~Race ()
     
 }
         
-int Race::getIDRace ()
+std::string Race::getIDRace ()
 {
     return idRace;
 }
 
-QString Race::getNomRace ()
+std::string Race::getNomRace ()
 {
     return nomRace;
 }
@@ -87,7 +106,7 @@ int Race::getNbAncetres ()
     return nbAncetres;
 }
 
-void Race::setNomRace (QString &nom)
+void Race::setNomRace (std::string &nom)
 {
     nomRace=nom;
 }

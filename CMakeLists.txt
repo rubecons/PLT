@@ -20,7 +20,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 # Generate headers
 set(DIA2CODE "${PROJECT_SOURCE_DIR}/dia2code/bin/dia2code")
-exec_program(${DIA2CODE} ARGS -d ../src -ns Etats,Rendu -t cpp ../src/UMLprojet.dia)
+exec_program(${DIA2CODE} ARGS -d ../src -ns Etats,Rendu,moteur -t cpp ../src/UMLprojet.dia)
 #exec_program(${DIA2CODE} ARGS -d ../src -t cpp ../src/render.dia)
 
 # Sources
