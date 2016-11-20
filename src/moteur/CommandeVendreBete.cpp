@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 
-#include "CommandeVendreBete.h"
+#include "moteur/CommandeVendreBete.h"
 
 namespace moteur
 {
-CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Animal> anm, std::shared_ptr<Ferme> ferme) : animal(anm), ferme(ferme)
-{
+
+CommandeVendreBete::CommandeVendreBete (){}
     
+CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Etats::Animal> anm, std::shared_ptr<Etats::Ferme> frm)// : animal(anm), ferme(ferme)
+{
+    animal=anm;
+    ferme=frm;
 }
 
 void CommandeVendreBete::effectuerCommande ()

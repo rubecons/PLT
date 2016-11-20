@@ -5,8 +5,11 @@
  */
 
 #include "Animal.h"
-//#include <string>
+#include <cmath>
+
+
 namespace Etats{
+    
 Animal::Animal (std::shared_ptr<Elevage> elvaj, bool sx, int ms, int an, std::vector<std::string> ancet)
 {
     std::string se;
@@ -39,15 +42,15 @@ Animal::~Animal ()
 
 void Animal::tuerAnimal ()
 {
-    //~Animal();
+    ~Animal();
 }
 
 void Animal::vendreAnimal ()
 {
     double poids;
-    if(((IDelevage->getTemps()->getMois()-dateNaissance[1])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[2])))<IDelevage->getRace()->getAgeMoyenMaturite(sexe))
+    if(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))<IDelevage->getRace()->getAgeMoyenMaturite(sexe))
     {
-        poids=(((IDelevage->getTemps()->getMois()-dateNaissance[1])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[2])))*(double)((IDelevage->getRace()->getPoidsMoyenAdulte(sexe)-IDelevage->getRace()->getPoidsMoyenNaissance())/IDelevage->getRace()->getAgeMoyenMaturite(sexe)))+(IDelevage->getRace()->getPoidsMoyenNaissance());
+        poids=(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))*(double)((IDelevage->getRace()->getPoidsMoyenAdulte(sexe)-IDelevage->getRace()->getPoidsMoyenNaissance())/IDelevage->getRace()->getAgeMoyenMaturite(sexe)))+(IDelevage->getRace()->getPoidsMoyenNaissance());
     }
     else
     {
@@ -56,6 +59,7 @@ void Animal::vendreAnimal ()
     double gain =poids*(IDelevage->getRace()->getPrixVenteKilo());
     
     IDelevage->getFerme()->plusBudget(gain);
+    ~Animal();
 }
 
 std::string Animal::getIDAnimal ()
@@ -85,22 +89,22 @@ void Animal::setNomAnimal (string nom)
 
 bool Animal::getSexe ()
 {
-    
+    return sexe;
 }
 
-void Animal::setSexe (bool sexe)
+void Animal::setSexe (bool sxe)
 {
-    
+    sexe=sxe;
 }
 
 std::array<int, 2> Animal::getDateNaissance ()
 {
-    
+    return dateNaissance;
 }
 
 void Animal::setDateNaissance (int anneeNaissance, int moisNaissance)
 {
-    
+    dateNaissance={moisNaissance, anneeNaissance};
 }
 
 /*int Animal::getPoids ()
@@ -115,12 +119,35 @@ void Animal::setPoids (int poids)
 
 std::vector<std::string> Animal::getAncetres ()
 {
-    
+    return ancetres;
 }
 
-void Animal::setAncetres (std::vector<std::string> ancetresPere, std::vector<std::string> ancetresMere)
+void Animal::setAncetres (std::shared_ptr<AnimalMale> ancetresPere, std::shared_ptr<AnimalFemelle> ancetresMere)
 {
-    
+    ancetres.push_back(ancetresPere->getIDAnimal());
+    ancetres.push_back(ancetresMere->getIDAnimal());
+
+    for(int i=0;i<(IDelevage->getRace()->getNbGenerations())-1;i++)// P= {p, m | pp, mp, pm, mm | ppp, mpp, pmp, mmp, ppm, mpm, pmm, mmm}
+    {
+        int valInit=0;
+        if(i!=0)
+        {
+            for(int l=1;l<i+1;l++)
+            {
+                valInit+=std::exp2(l);
+            }
+        }
+        //std::cout<< "valInit= "<<valInit <<std::endl;
+        for(int j=valInit ; j<std::exp2(i+1)+valInit ; j++)
+        {
+            ancetres.push_back(ancetresPere->ancetres[j]);
+        }
+        //*
+        for(int j=valInit ; j<std::exp2(i+1)+valInit ; j++)
+        {
+            ancetres.push_back(ancetresMere->ancetres[j]);
+        }//*/
+    }
 }
 
 }

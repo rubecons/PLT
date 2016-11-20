@@ -5,7 +5,7 @@
  */
 
 #include "Race.h"
-#include<cmath>
+#include <cmath>
 
 namespace Etats{
 
@@ -25,10 +25,33 @@ Race::Race (std::string nom, int esperanceDeVieMale, int esperanceDeVieFemelle, 
     poidsMoyenNaissance=poidsNaissance;
     prixVenteKilo=prixVenteKg;
     nbGenerations=nbGen;
-    //idRace=;
+    
+    idRace="";
+    std::string::size_type n=0, nn=0;
+ 
+ 
+    while(n<nomRace.length())
+    {
+        std::string::size_type m;
+        std::string buff = nomRace.substr(n,3);
+        if ((m = buff.find(" ")) != std::string::npos)
+        buff = nomRace.substr(n,m);
+
+        idRace+=buff;
+        
+        n = nomRace.find(" ", nn);
+        if (n != std::string::npos)
+        {
+             n++;
+        }
+        nn=n;
+    }
+    for (auto & c: idRace) c = toupper(c);
+    
+    
     for(int i=1; i<=nbGenerations; i++)
     {
-        nbAncetres+=exp2(i);
+        nbAncetres+=std::exp2(i);
     }
 }
 
@@ -49,26 +72,28 @@ std::string Race::getNomRace ()
 
 int Race::getEsperanceDeVie (bool sexe) //sexe=true si c'est un male, false si c'est une femelle
 {
-//    if (sexe==true)return *esperanceDeVie;
-//    else return *(esperanceDeVie+1);
+    if (sexe==true)
+    {return esperanceDeVie[0];}
+    else
+    {return esperanceDeVie[1];}
 }
 
 int Race::getPoidsMoyenAdulte (bool sexe)
 {
-    //if (sexe==true)return *poidsMoyenAdulte;
-    //else return *(poidsMoyenAdulte+1);
+    if (sexe==true)return poidsMoyenAdulte[0];
+    else return poidsMoyenAdulte[1];
 }
 
 int Race::getAgeMoyenMaturite (bool sexe)
 {
-   // if (sexe==true)return *ageMoyenMaturite;
-   // else return *(ageMoyenMaturite+1);
+   if (sexe==true)return ageMoyenMaturite[0];
+   else return ageMoyenMaturite[1];
 }
 
 double Race::getPrixNourritureVeterinaireParKilo (bool sexe)
 {
- //   if (sexe==true)return *prixNourritureVeterinaire;
- //   else return *(prixNourritureVeterinaire+1);
+    if (sexe==true)return prixNourritureVeterinaireParKilo[0];
+    else return prixNourritureVeterinaireParKilo[1];
 }
 
 int Race::getDureeGestation ()
@@ -86,15 +111,15 @@ int Race::getNbEnfantsPortee ()
     return nbEnfantsPortee;
 }
 
+int Race::getPoidsMoyenNaissance ()
+{
+    return poidsMoyenNaissance;
+}
+
 double Race::getPrixVenteKilo ()
 {
     return prixVenteKilo;
 }
-
-/*double Race::getGainVente_adulte ()
-{
-    return ;
-}//*/
 
 int Race::getNbGenerations ()
 {
@@ -113,26 +138,26 @@ void Race::setNomRace (std::string &nom)
 
 void Race::setEsperanceDeVie (bool sexe, int duree_esperancedevie)
 {
-//    if (sexe==true) *esperanceDeVie=duree_esperancedevie;
-//    else *(esperanceDeVie+1)=duree_esperancedevie;
+    if (sexe==true) esperanceDeVie[0]=duree_esperancedevie;
+    else esperanceDeVie[1]=duree_esperancedevie;
 }
 
 void Race::setPoidsMoyenAdulte (bool sexe, int poids)
 {
-  //  if (sexe==true) *poidsMoyenAdulte=poids;
- //   else *(poidsMoyenAdulte+1)=poids;
+    if (sexe==true) poidsMoyenAdulte[0]=poids;
+    else poidsMoyenAdulte[1]=poids;
 }
 
 void Race::setAgeMoyenMaturite (bool sexe, int age)
 {
- //   if (sexe==true) *ageMoyenMaturite=age;
- //   else *(ageMoyenMaturite+1)=age;
+    if (sexe==true) ageMoyenMaturite[0]=age;
+    else ageMoyenMaturite[1]=age;
 }
 
 void Race::setPrixNourritureVeterinaireParKilo (bool sexe, double prix)
 {
-  //  if (sexe==true) *prixNourritureVeterinaire=prix;
-  //  else *(prixNourritureVeterinaire+1)=prix;
+    if (sexe==true) prixNourritureVeterinaireParKilo[0]=prix;
+    else prixNourritureVeterinaireParKilo[1]=prix;
 }
 
 void Race::setDureeGestation (int duree)
@@ -150,15 +175,15 @@ void Race::setNbEnfantsPortee (int nombre)
     nbEnfantsPortee=nombre;
 }
 
+void Race::setPoidsMoyenNaissance (int poids)
+{
+    poidsMoyenNaissance=poids;
+}
+
 void Race::setPrixVenteKilo (double prix)
 {
     prixVenteKilo=prix;
 }
-
-/*void Race::setGainVente_adulte (double prix)
-{
-    
-}//*/
 
 void Race::setNbGenerations (int nbGen)
 {

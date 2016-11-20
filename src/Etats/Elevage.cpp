@@ -11,7 +11,6 @@ namespace Etats{
     {
     }
     
-    
     Elevage::Elevage (std::string nom, std::shared_ptr<Race> race, std::shared_ptr<Temps> tps, std::shared_ptr<Ferme> frm)
     {
         nomElevage=nom;

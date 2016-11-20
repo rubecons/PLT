@@ -77,9 +77,9 @@ int main(int argc, char *argv[]) {
     
     std::shared_ptr<Race> vacheLimousine=std::make_shared<Race>("Bos Taurus Limousin", 264, 264, 1100, 800, 11, 15, 0.55, 0.46, 9, 2, 1, 45, 2.80, 3);
     
-    std::shared_ptr<Elevage> elevageVache = std::make_shared<Elevage>("Elevage Limousines", vacheLimousine);
+    std::shared_ptr<Elevage> elevageVache = std::make_shared<Elevage>("Elevage Limousines", vacheLimousine, temps, ferme);
     
-    
+    delete ferme; delete temps; delete vacheLimousine; delete elevageVache;
     
     /*FenetrePremiereOuverture feneteInit(ferme, temps);//dbConn);
     feneteInit.show();

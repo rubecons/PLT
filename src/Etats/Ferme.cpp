@@ -74,11 +74,21 @@ bool Ferme::supprimerElevageListe (int select)//std::shared_ptr<Elevage> elevage
 void Ferme::ajouterRaceListe (std::shared_ptr<Race> race)
 {
     //std::list<std::shared_ptr<Race>> mesRaces;
+    mesRaces.push_back(race);
 }
 
-void Ferme::supprimerRaceListe (std::shared_ptr<Race> race)
+bool Ferme::supprimerRaceListe (std::shared_ptr<Race> race)
 {
     //std::list<std::shared_ptr<Race>> mesRaces;
+    if(select<(int)(mesRaces.end()-mesRaces.begin()))
+    {
+        mesRaces.erase(mesRaces.begin()+select);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 double Ferme::getBudget ()

@@ -633,6 +633,14 @@ int ferme;
 int animalMale;
 int animalFemelle;
 int temps;
+int erace;
+int eelevage;
+int eanimal;
+int eferme;
+int eanimalMale;
+int eanimalFemelle;
+int etemps;
+
 
 int fenetreNouvelleBete;
 int fenetreNouvelElevage;
@@ -848,6 +856,7 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include <QWidgetAction>\n");
            si->QWidgetAction = 1;
        }
+       /*
 	if (!si->race && strstr(name,"//Race;")) {
            print ("#include \"Race.h\"\n");
            si->race = 1;
@@ -876,6 +885,40 @@ void print_include_stdlib(struct stdlib_includes* si,char* name) {
            print ("#include \"Temps.h\"\n");
            si->temps = 1;
        }
+       
+       if (!si->erace && strstr(name,"//ERace;")) {
+           print ("#include \"Etats/Race.h\"\n");
+           si->race = 1;
+	}
+	if (!si->eelevage && strstr(name,"//EElevage;")) {
+           print ("#include \"Etats/Elevage.h\"\n");
+           si->elevage = 1;
+       }
+	if (!si->eanimal && strstr(name,"//EAnimal;")) {
+           print ("#include \"Etats/Animal.h\"\n");
+           si->animal = 1;
+	 }
+	if (!si->eferme && strstr(name,"//EFerme;")) {
+           print ("#include \"Etats/Ferme.h\"\n");
+           si->ferme = 1;
+	 }
+	if (!si->eanimalMale && strstr(name,"//EAnimalMale;")) {
+           print ("#include \"Etats/AnimalMale.h\"\n");
+           si->animalMale = 1;
+       }
+	if (!si->eanimalFemelle && strstr(name,"//EAnimalFemelle;")) {
+           print ("#include \"Etats/AnimalFemelle.h\"\n");
+           si->animalFemelle = 1;
+       }
+	if (!si->etemps && strstr(name,"//ETemps;")) {
+           print ("#include \"Etats/Temps.h\"\n");
+           si->temps = 1;
+       }
+       
+       
+       
+       
+       
 if (!si->fenetreNouvelleBete && strstr(name,"//FenetreNouvelleBete;")) {
            print ("#include \"FenetreNouvelleBete.h\"\n");
            si->fenetreNouvelleBete = 1;

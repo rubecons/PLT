@@ -7,7 +7,7 @@
 
 namespace Etats {
 
-Temps::Temps()//à coder de toute urgence
+Temps::Temps()
 {
     
 }
@@ -45,7 +45,7 @@ void Temps::setMois (int ms)
 
 void Temps::upMois ()
 {
-    mois=mois+1%12;
+    mois=(mois+1)%12;
     if(mois==1)annee++;
 }
 
