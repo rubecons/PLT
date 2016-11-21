@@ -5,6 +5,7 @@
  */
 
 #include "AnimalFemelle.h"
+#include "AnimalMale.h"
 #include <cstdlib>
 #include <algorithm>
 //#include
@@ -28,7 +29,7 @@ void AnimalFemelle::vendreAnimal ()
 {
 }
     //*/
-bool AnimalFemelle::accoupler (std::shared_ptr<Animal> male)
+bool AnimalFemelle::accoupler (AnimalMale* male)
 {
     int dureeDepuisDerniereGrossesse=((getIDElevage()->getTemps()->getMois()-dateDerniereMiseBas[0])+(12*(getIDElevage()->getTemps()->getAnnee()-dateDerniereMiseBas[1])));
     
@@ -50,6 +51,7 @@ bool AnimalFemelle::accoupler (std::shared_ptr<Animal> male)
         {
             compatible=false;
             break;
+  
         }
     }
     
@@ -58,7 +60,7 @@ bool AnimalFemelle::accoupler (std::shared_ptr<Animal> male)
         isEnceinte=true;
         dateAccouplement[0]=getIDElevage()->getTemps()->getMois();
         dateAccouplement[1]=getIDElevage()->getTemps()->getAnnee();
-        geniteur=male;
+        geniteur=std::shared_ptr<AnimalMale>(male);
         
         dateDerniereMiseBas[1]=getIDElevage()->getTemps()->getAnnee()+(getIDElevage()->getRace()->getDureeGestation()/12);
         if((getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))<(getIDElevage()->getTemps()->getMois()))

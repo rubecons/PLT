@@ -77,7 +77,7 @@ void Ferme::ajouterRaceListe (std::shared_ptr<Race> race)
     mesRaces.push_back(race);
 }
 
-bool Ferme::supprimerRaceListe (std::shared_ptr<Race> race)
+bool Ferme::supprimerRaceListe (int select)
 {
     //std::list<std::shared_ptr<Race>> mesRaces;
     if(select<(int)(mesRaces.end()-mesRaces.begin()))

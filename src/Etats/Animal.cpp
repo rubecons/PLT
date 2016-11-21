@@ -42,12 +42,12 @@ Animal::~Animal ()
 
 void Animal::tuerAnimal ()
 {
-    ~Animal();
+    this->~Animal();
 }
 
 void Animal::vendreAnimal ()
 {
-    double poids;
+    /*double poids;
     if(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))<IDelevage->getRace()->getAgeMoyenMaturite(sexe))
     {
         poids=(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))*(double)((IDelevage->getRace()->getPoidsMoyenAdulte(sexe)-IDelevage->getRace()->getPoidsMoyenNaissance())/IDelevage->getRace()->getAgeMoyenMaturite(sexe)))+(IDelevage->getRace()->getPoidsMoyenNaissance());
@@ -58,8 +58,8 @@ void Animal::vendreAnimal ()
     }
     double gain =poids*(IDelevage->getRace()->getPrixVenteKilo());
     
-    IDelevage->getFerme()->plusBudget(gain);
-    ~Animal();
+    IDelevage->getFerme()->plusBudget(gain);*/
+    //~Animal();
 }
 
 std::string Animal::getIDAnimal ()
@@ -122,7 +122,7 @@ std::vector<std::string> Animal::getAncetres ()
     return ancetres;
 }
 
-void Animal::setAncetres (std::shared_ptr<AnimalMale> ancetresPere, std::shared_ptr<AnimalFemelle> ancetresMere)
+void Animal::setAncetres (std::shared_ptr<Animal> ancetresPere, std::shared_ptr<Animal> ancetresMere)
 {
     ancetres.push_back(ancetresPere->getIDAnimal());
     ancetres.push_back(ancetresMere->getIDAnimal());

@@ -5,6 +5,7 @@
  */
 
 #include "AnimalMale.h"
+#include "AnimalFemelle.h"
 
 namespace Etats{
     
@@ -33,7 +34,7 @@ namespace Etats{
         
     }//*/
     
-    bool AnimalMale::accoupler (std::shared_ptr<Animal> femelle)
+    bool AnimalMale::accoupler (AnimalFemelle* femelle)
     {
         if(femelle->getSexe()==false)
         {

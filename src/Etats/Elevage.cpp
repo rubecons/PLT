@@ -6,6 +6,7 @@
 
 #include "Elevage.h"
 
+
 namespace Etats{
     Elevage::Elevage ()
     {
@@ -30,9 +31,34 @@ namespace Etats{
         animauxElevage.push_back(animal);
     }
     
-    void Elevage::supprimerAnimalListe (std::vector<std::shared_ptr<Animal>>::iterator it)//Animal* animal)
+    void Elevage::supprimerAnimalListe(const std::string & IDanimal, bool choixVente)
     {
-        animauxElevage.erase(it);
+        if(choixVente==true)
+        {
+            for(auto & animal : animauxElevage)
+            {
+                double poids;
+                if(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))<getRace()->getAgeMoyenMaturite(animal->getSexe()))
+                {
+                    poids=(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))*(double)((getRace()->getPoidsMoyenAdulte(animal->getSexe())-getRace()->getPoidsMoyenNaissance())/getRace()->getAgeMoyenMaturite(animal->getSexe())))+(getRace()->getPoidsMoyenNaissance());
+                }
+                else
+                {
+                    poids=getRace()->getPoidsMoyenAdulte(animal->getSexe());
+                }
+                double gain =poids*(getRace()->getPrixVenteKilo());
+
+                getFerme()->plusBudget(gain);
+            }
+        }
+        
+        for(auto & animal : animauxElevage)
+        {
+            if(animal->getIDAnimal()==IDanimal)
+            {
+                animal.reset();
+            }
+        }
     }
     
     std::string Elevage::getIdElevage ()
