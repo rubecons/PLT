@@ -101,9 +101,19 @@ void Ferme::setBudget (double budgetInitial)
     budget=budgetInitial;
 }
 
+std::vector<std::shared_ptr<Elevage>> Ferme::getElevages ()
+{
+    return mesElevages;
+}
+
 double Ferme::getEmprunt ()
 {
     return argentEmprunte;
+}
+
+std::vector<std::shared_ptr<Race>> Ferme::getRaces ()
+{
+    return mesRaces;
 }
 
 void Ferme::emprunter (double sommeEmprunt)

@@ -66,6 +66,11 @@ namespace Etats{
         return idElevage;
     }
     
+    std::vector<std::shared_ptr<Animal>> Elevage::getAnimaux ()
+    {
+        return animauxElevage;
+    }
+    
     std::shared_ptr<Ferme> Elevage::getFerme ()
     {
         return ferme;
