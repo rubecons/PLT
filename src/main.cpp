@@ -79,12 +79,13 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<Temps> temps= std::make_shared<Temps>(11, 2016);
     
     std::shared_ptr<Race> vacheLimousine=std::make_shared<Race>("Bos Taurus Limousin", 264, 264, 1100, 800, 11, 15, 0.55, 0.46, 9, 2, 1, 45, 2.80, 3);
-    
+    ferme->ajouterRaceListe(vacheLimousine);
     std::shared_ptr<Elevage> elevageVache = std::make_shared<Elevage>("Elevage Limousines", vacheLimousine, temps, ferme);
-    
+    ferme->ajouterElevageListe(elevageVache);
     std::shared_ptr<Animal> vache1 =  std::make_shared<AnimalMale>(elevageVache, true, 2, 2014, std::vector<std::string>(14)={"E1", "E2","E3", "E4","E5", "E6","E7", "E8", "E9", "E10","E11", "E12","E13", "E14"});
     std::shared_ptr<Animal> vache2 =  std::make_shared<AnimalFemelle>(elevageVache, false, 7, 2013, std::vector<std::string>(14)={"E15", "E2","E3", "E4","E5", "E6","E7", "E8", "E9", "E10","E11", "E12","E13", "E14"});
-    
+    elevageVache->rajouterAnimalListe(vache1);
+    elevageVache->rajouterAnimalListe(vache2);
             
     std::cout<<"ferme : Budget: "<< ferme->getBudget() <<" € | Emprunts:"<< ferme->getEmprunt()<<" € "<<std::endl;
     for (auto & elevage : ferme->getElevages())
