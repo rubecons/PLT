@@ -16,12 +16,16 @@ Moteur::Moteur ()
 
 void Moteur::ajouterCommande (std::shared_ptr<Commande> com)
 {
-    
+    mesCommandes.push_back(com);
 }
 
 void Moteur::execCommande ( )
 {
-    
+    while(mesCommandes.empty()==false)
+    {
+        mesCommandes.back()->effectuerCommande();
+        mesCommandes.pop_back();
+    }
 }
             
 }

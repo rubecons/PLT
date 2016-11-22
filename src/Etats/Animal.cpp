@@ -5,6 +5,7 @@
  */
 
 #include "Animal.h"
+#include "EtatAnimal.h"
 #include <cmath>
 
 
@@ -20,7 +21,7 @@ Animal::Animal (std::shared_ptr<Elevage> elvaj, bool sx, int ms, int an, std::ve
     else {se="F";}
     IDanimal=IDelevage->getIdElevage()+"-"+se+std::to_string(IDelevage->incrementNbAnimaux);
     dateNaissance={ms,an};
-    
+    etat = EtatAnimal::VIVANT;
     ancetres=ancet;
 }
 /*
@@ -42,7 +43,7 @@ Animal::~Animal ()
 
 void Animal::tuerAnimal ()
 {
-    this->~Animal();
+    //this->~Animal();
 }
 
 void Animal::vendreAnimal ()
@@ -65,6 +66,16 @@ void Animal::vendreAnimal ()
 std::string Animal::getIDAnimal ()
 {
     return IDanimal;
+}
+
+EtatAnimal Animal::getEtat ()
+{
+    return etat;
+}
+
+void Animal::setEtat (EtatAnimal state)
+{
+    etat=state;
 }
 
 std::shared_ptr<Elevage> Animal::getIDElevage ()

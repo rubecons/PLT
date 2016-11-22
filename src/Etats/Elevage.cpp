@@ -56,7 +56,8 @@ namespace Etats{
         {
             if(animal->getIDAnimal()==IDanimal)
             {
-                animal.reset();
+                animal->setEtat(EtatAnimal::MORT);
+                //animal.reset();
             }
         }
     }

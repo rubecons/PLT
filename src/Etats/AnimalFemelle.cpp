@@ -12,7 +12,7 @@
 
 namespace Etats{
     
-AnimalFemelle::AnimalFemelle (std::shared_ptr<Elevage> elvaj, bool sx, int ms, int an, std::vector<std::string> ancet) : Animal(elvaj, sx, ms, an, ancet)
+AnimalFemelle::AnimalFemelle (std::shared_ptr<Elevage> elvaj, int ms, int an, std::vector<std::string> ancet) : Animal(elvaj, false, ms, an, ancet)
 {
     
 }

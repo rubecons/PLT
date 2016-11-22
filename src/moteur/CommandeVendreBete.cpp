@@ -17,7 +17,8 @@ CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Etats::Animal> anm, std:
     //ferme=frm;
 }
 
- CommandeVendreBete::~CommandeVendreBete (){}
+CommandeVendreBete::~CommandeVendreBete (){}
+
 void CommandeVendreBete::effectuerCommande ()
 {
     
