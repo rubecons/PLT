@@ -20,6 +20,7 @@ namespace Etats{
         ferme=frm;
         ferme->incrementNbElevage++;
         idElevage=(raceElevage->getIDRace())+std::to_string(ferme->incrementNbElevage);
+        etat=EtatElevage::ACTIF;
     }
     
     Elevage::~Elevage ()
@@ -37,24 +38,27 @@ namespace Etats{
         {
             for(auto & animal : animauxElevage)
             {
-                double poids;
-                if(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))<getRace()->getAgeMoyenMaturite(animal->getSexe()))
+                if(animal->getIDAnimal()==IDanimal && animal->getEtat()==EtatAnimal::VIVANT)
                 {
-                    poids=(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))*(double)((getRace()->getPoidsMoyenAdulte(animal->getSexe())-getRace()->getPoidsMoyenNaissance())/getRace()->getAgeMoyenMaturite(animal->getSexe())))+(getRace()->getPoidsMoyenNaissance());
-                }
-                else
-                {
-                    poids=getRace()->getPoidsMoyenAdulte(animal->getSexe());
-                }
-                double gain =poids*(getRace()->getPrixVenteKilo());
+                    double poids;
+                    if(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))<getRace()->getAgeMoyenMaturite(animal->getSexe()))
+                    {
+                        poids=(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))*(double)((getRace()->getPoidsMoyenAdulte(animal->getSexe())-getRace()->getPoidsMoyenNaissance())/getRace()->getAgeMoyenMaturite(animal->getSexe())))+(getRace()->getPoidsMoyenNaissance());
+                    }
+                    else
+                    {
+                        poids=getRace()->getPoidsMoyenAdulte(animal->getSexe());
+                    }
+                    double gain =poids*(getRace()->getPrixVenteKilo());
 
-                getFerme()->plusBudget(gain);
+                    getFerme()->plusBudget(gain);
+                }
             }
         }
         
         for(auto & animal : animauxElevage)
         {
-            if(animal->getIDAnimal()==IDanimal)
+            if(animal->getIDAnimal()==IDanimal && animal->getEtat()==EtatAnimal::VIVANT)
             {
                 animal->setEtat(EtatAnimal::MORT);
                 //animal.reset();
@@ -70,6 +74,11 @@ namespace Etats{
     std::vector<std::shared_ptr<Animal>> Elevage::getAnimaux ()
     {
         return animauxElevage;
+    }
+    
+    EtatElevage Elevage::getEtat ()
+    {
+        return etat;
     }
     
     std::shared_ptr<Ferme> Elevage::getFerme ()
@@ -90,6 +99,11 @@ namespace Etats{
     std::shared_ptr<Temps> Elevage::getTemps ()
     {
         return temps;
+    }
+    
+    void Elevage::setEtat (EtatElevage state)
+    {
+        etat=state;
     }
     
     void Elevage::setFerme (std::shared_ptr<Ferme> frm)

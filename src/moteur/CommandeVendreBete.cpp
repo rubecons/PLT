@@ -13,15 +13,15 @@ CommandeVendreBete::CommandeVendreBete (){}
     
 CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Etats::Animal> anm, std::shared_ptr<Etats::Ferme> frm)// : animal(anm), ferme(ferme)
 {
-    //animal=anm;
-    //ferme=frm;
+    animal=anm;
+    ferme=frm;
 }
 
 CommandeVendreBete::~CommandeVendreBete (){}
 
 void CommandeVendreBete::effectuerCommande ()
 {
-    
+    animal->getIDElevage()->supprimerAnimalListe(animal->getIDAnimal(), true);
 }   
      
 }

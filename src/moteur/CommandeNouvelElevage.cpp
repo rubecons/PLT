@@ -13,9 +13,12 @@ CommandeNouvelElevage::CommandeNouvelElevage ()
     
 }
 
-CommandeNouvelElevage::CommandeNouvelElevage (std::shared_ptr<Etats::Ferme> ferme)
+CommandeNouvelElevage::CommandeNouvelElevage (std::string nm, std::shared_ptr<Etats::Race> rac, std::shared_ptr<Etats::Temps> tmp, std::shared_ptr<Etats::Ferme> frm)
 {
-    
+    nom=nm;
+    race=rac;
+    temps=tmp;
+    ferme=frm;
 }
 
 CommandeNouvelElevage::~CommandeNouvelElevage ()
@@ -25,7 +28,8 @@ CommandeNouvelElevage::~CommandeNouvelElevage ()
 
 void CommandeNouvelElevage::effectuerCommande ()
 {
-    
+    std::shared_ptr<Etats::Elevage> elevage = std::make_shared<Etats::Elevage>(nom, race, temps, ferme);
+    ferme->ajouterElevageListe(elevage);
 }
 
 }

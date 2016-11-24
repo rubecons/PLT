@@ -53,14 +53,24 @@ void Ferme::ajouterElevageListe (std::shared_ptr<Elevage> elevage)
     }
 }*/
 
-bool Ferme::supprimerElevageListe (int select)//std::shared_ptr<Elevage> elevage)
+bool Ferme::supprimerElevageListe (std::string IDElevage)//std::shared_ptr<Elevage> elevage)
 {
     /*std::list<Elevage*>::iterator iter=mesElevages.begin();
     while (((*iter)->nomElevage)!=nom && iter!=mesElevages.end())
     {
         iter++;
     }//*/
-    if(select<(int)(mesElevages.end()-mesElevages.begin()))
+    for(auto elevage : mesElevages)
+    {
+        if(elevage->getIdElevage()==IDElevage && elevage->getEtat()==EtatElevage::ACTIF)
+        {
+            elevage->setEtat(EtatElevage::ARRET);
+            //animal.reset();
+            return true;
+        }
+        
+    }
+    /*if(select<(int)(mesElevages.end()-mesElevages.begin()))
     {
         mesElevages.erase(mesElevages.begin()+select);
         return true;
@@ -68,7 +78,8 @@ bool Ferme::supprimerElevageListe (int select)//std::shared_ptr<Elevage> elevage
     else
     {
         return false;
-    }
+    }*/
+    return false;
 }
 
 void Ferme::ajouterRaceListe (std::shared_ptr<Race> race)

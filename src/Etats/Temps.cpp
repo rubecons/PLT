@@ -46,7 +46,7 @@ void Temps::setMois (int ms)
 void Temps::upMois ()
 {
     mois=(mois+1)%12;
-    if(mois==1)annee++;
+    if(mois==0)annee++;
 }
 
 }
