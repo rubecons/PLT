@@ -8,13 +8,14 @@
 #include "AnimalMale.h"
 #include <cstdlib>
 #include <algorithm>
-//#include
+#include <iostream>
 
 namespace Etats{
     
 AnimalFemelle::AnimalFemelle (std::shared_ptr<Elevage> elvaj, int ms, int an, std::vector<std::string> ancet) : Animal(elvaj, false, ms, an, ancet)
 {
-    
+    dateDerniereMiseBas[0]=ms;//-(IDelevage->getRace()->getDureeEntre2Grossesses());
+    dateDerniereMiseBas[1]=an-(getIDElevage()->getRace()->getDureeEntre2Grossesses()/12)-1;
 }
 /*
 AnimalFemelle::~AnimalFemelle ()
@@ -29,33 +30,40 @@ void AnimalFemelle::vendreAnimal ()
 {
 }
     //*/
+std::array<int,2> AnimalFemelle::getDateDerniereMiseBas ()
+{
+    return dateDerniereMiseBas;
+}
+
 bool AnimalFemelle::accoupler (AnimalMale* male)
 {
     int dureeDepuisDerniereGrossesse=((getIDElevage()->getTemps()->getMois()-dateDerniereMiseBas[0])+(12*(getIDElevage()->getTemps()->getAnnee()-dateDerniereMiseBas[1])));
-    
+    int ageFemelle=(getIDElevage()->getTemps()->getMois()-getDateNaissance()[0])+(12*(getIDElevage()->getTemps()->getAnnee()-getDateNaissance()[1]));
     bool compatible=true;
     
-    if(std::find(std::begin(this->getAncetres()), std::end(this->getAncetres()), male->getIDAnimal())!=std::end(this->getAncetres()))
-        {
-            compatible=false;
-            //break;
-        }
-    if(std::find(std::begin(male->getAncetres()), std::end(male->getAncetres()), this->getIDAnimal())!=std::end(male->getAncetres()))
-        {
-            compatible=false;
-            //break;
-        }
-    for(auto & a : male->getAncetres())
+    auto ancFem=getAncetres();
+    auto ancMal= male->getAncetres();
+    std::string idMale=male->getIDAnimal();
+    std::string idFemelle=getIDAnimal();
+    
+    if(std::find(std::begin(ancFem), std::end(ancFem), idMale) != std::end(ancFem))
     {
-        if(std::find(std::begin(this->getAncetres()), std::end(this->getAncetres()), a)!=std::end(this->getAncetres()))
+        compatible=false;
+    }
+    if(std::find(std::begin(ancMal), std::end(ancMal), idFemelle) != std::end(ancMal))
+    {
+        compatible=false;
+    }
+    for(auto & a : ancMal)
+    {
+        if(std::find(std::begin(ancFem), std::end(ancFem), a)!=std::end(ancFem))
         {
             compatible=false;
             break;
-  
         }
     }
     
-    if(male->getSexe() && isEnceinte==false && dureeDepuisDerniereGrossesse>getIDElevage()->getRace()->getDureeEntre2Grossesses() && compatible)
+    if(male->getSexe() && isEnceinte==false && dureeDepuisDerniereGrossesse>getIDElevage()->getRace()->getDureeEntre2Grossesses() && compatible && ageFemelle>getIDElevage()->getRace()->getAgeMoyenMaturite(getSexe()))
     {
         isEnceinte=true;
         dateAccouplement[0]=getIDElevage()->getTemps()->getMois();
@@ -63,20 +71,22 @@ bool AnimalFemelle::accoupler (AnimalMale* male)
         geniteur=std::shared_ptr<AnimalMale>(male);
         
         dateDerniereMiseBas[1]=getIDElevage()->getTemps()->getAnnee()+(getIDElevage()->getRace()->getDureeGestation()/12);
-        if((getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))<(getIDElevage()->getTemps()->getMois()))
+        if(((getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12)<(getIDElevage()->getTemps()->getMois()))
         {
             dateDerniereMiseBas[1]=dateDerniereMiseBas[1]+1;
-            dateDerniereMiseBas[0]=(getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12));
+            dateDerniereMiseBas[0]=(getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12;
         }
+        std::cout<<"accouplement en cours"<<std::endl;
         return true;        
     }
     else
     {
+        //std::cout<<"accouplement impossible, désolé"<<std::endl;
         return false;
     }
 }
     
-bool AnimalFemelle::mettreBas (bool isEnceinte, std::array<int,2> dateAccouplement, int dureeGestation)
+bool AnimalFemelle::mettreBas ()//bool isEnceinte, std::array<int,2> dateAccouplement, int dureeGestation)
 {
     if (isEnceinte && dateDerniereMiseBas[1]==getIDElevage()->getTemps()->getAnnee() && dateDerniereMiseBas[0]==getIDElevage()->getTemps()->getMois())
     {
@@ -114,18 +124,18 @@ bool AnimalFemelle::mettreBas (bool isEnceinte, std::array<int,2> dateAccoupleme
             bool sexeRandom= std::rand()%2;
             if(sexeRandom)
             {//il faut enlever les commentaires en dessous
-                //std::shared_ptr<Animal> bebe= (std::shared_ptr<Animal>) std::make_shared<AnimalMale>(getIDElevage(), sexeRandom, getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
-                //getIDElevage()->rajouterAnimalListe(bebe);
+                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalMale>(getIDElevage(), getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
+                getIDElevage()->rajouterAnimalListe(bebe);
             }
             else
             {
-                //std::shared_ptr<Animal> bebe= (std::shared_ptr<Animal>) std::make_shared<AnimalFemelle>(getIDElevage(), sexeRandom, getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
-                //getIDElevage()->rajouterAnimalListe(bebe);
+                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalFemelle>(getIDElevage(), getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
+                getIDElevage()->rajouterAnimalListe(bebe);
             }
             
             
         }
-            return true;
+        return true;
     }
     else
     {

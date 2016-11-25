@@ -27,11 +27,18 @@ CommandeAccouplerBete::~CommandeAccouplerBete ()
 }
 
 void CommandeAccouplerBete::effectuerCommande ()
-{/*
-    if(vache1->getSexe())
+{
+    if(male->getSexe() && femelle->getSexe()==false)
     {
-        AnimalMale* pointeurAnimalMale=static_cast<AnimalMale*>(vache1.get());
-        pointeurAnimalMale->accoupler(dynamic_cast<AnimalFemelle*>(vache2).get());
+        Etats::AnimalMale* pointeurAnimalMale=static_cast<Etats::AnimalMale*>(male.get());
+        Etats::AnimalFemelle* pointeurAnimalFemelle=static_cast<Etats::AnimalFemelle*>(femelle.get());
+        pointeurAnimalFemelle->accoupler(pointeurAnimalMale);
+    }
+    else if(femelle->getSexe() && male->getSexe()==false)
+    {
+        Etats::AnimalMale* pointeurAnimalMale=static_cast<Etats::AnimalMale*>(femelle.get());
+        Etats::AnimalFemelle* pointeurAnimalFemelle=static_cast<Etats::AnimalFemelle*>(male.get());
+        pointeurAnimalFemelle->accoupler(pointeurAnimalMale);
     }//*/
 }
 

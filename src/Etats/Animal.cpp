@@ -48,7 +48,7 @@ void Animal::tuerAnimal ()
 
 void Animal::vendreAnimal ()
 {
-    /*double poids;
+    double poids;
     if(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))<IDelevage->getRace()->getAgeMoyenMaturite(sexe))
     {
         poids=(((IDelevage->getTemps()->getMois()-dateNaissance[0])+(12*(IDelevage->getTemps()->getAnnee()-dateNaissance[1])))*(double)((IDelevage->getRace()->getPoidsMoyenAdulte(sexe)-IDelevage->getRace()->getPoidsMoyenNaissance())/IDelevage->getRace()->getAgeMoyenMaturite(sexe)))+(IDelevage->getRace()->getPoidsMoyenNaissance());
@@ -59,7 +59,7 @@ void Animal::vendreAnimal ()
     }
     double gain =poids*(IDelevage->getRace()->getPrixVenteKilo());
     
-    IDelevage->getFerme()->plusBudget(gain);*/
+    IDelevage->getFerme()->plusBudget(gain);//*/
     //~Animal();
 }
 
