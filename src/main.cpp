@@ -279,7 +279,7 @@ int main(int argc, char *argv[]) {
         //feneteInit.show();
     
     std::thread threadMoteur(&Moteur::execCommande);
-    //std::thread threadActualisationRendu(&FenetrePrincipale::actualiserFenetre());
+    std::thread threadActualisationRendu(&EtatsObserver::actualiserRendu());
     
     std::shared_ptr<CommandeAfficherFenetre> afficheFenetre = std::make_shared<CommandeAfficherFenetre>(ferme, temps, feneteInit);
     moteur->ajouterCommande(afficheFenetre);
