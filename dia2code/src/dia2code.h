@@ -67,7 +67,7 @@
 
 struct umlattribute {
     char name[SMALL_BUFFER];
-    char value[SMALL_BUFFER];
+    char value[BIG_BUFFER];
     char type [SMALL_BUFFER];
     char comment [LARGE_BUFFER];
     char visibility;

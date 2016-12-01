@@ -926,11 +926,11 @@ if (!si->fenetreNouvelleBete && strstr(name,"//FenetreNouvelleBete;")) {
 if (!si->fenetreNouvelElevage && strstr(name,"//FenetreNouvelElevage;")) {
            print ("#include \"FenetreNouvelElevage.h\"\n");
            si->fenetreNouvelElevage = 1;
-       }
-if (!si->fenetrePrincipale && strstr(name,"//FenetrePrincipale;")) {
-           print ("#include \"FenetrePrincipale.h\"\n");
+       }*/
+if (!si->fenetrePrincipale && strstr(name,"//FenetrePrincipale")) {
+           print ("#include \"Rendu/FenetrePrincipale.h\"\n");
            si->fenetrePrincipale = 1;
-       }
+       }/*
 if (!si->fenetrePremiereOuverture && strstr(name,"//FenetrePremiereOuverture;")) {
            print ("#include \"FenetrePremiereOuverture.h\"\n");
            si->fenetrePremiereOuverture = 1;

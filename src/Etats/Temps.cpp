@@ -9,7 +9,12 @@ namespace Etats {
 
 Temps::Temps()
 {
-    
+    nomMois={"janvier", "février","mars","avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"};
+    /*
+    nomMois[8]="septembre";
+    nomMois[9]="octobre";
+    nomMois[10]="novembre";
+    nomMois[11]="décembre";//*/
 }
 
 Temps::Temps(int m, int a)
@@ -47,6 +52,11 @@ void Temps::upMois ()
 {
     mois=(mois+1)%12;
     if(mois==0)annee++;
+}
+
+std::array<std::string, 12> Temps::getNomMois ()
+{
+    return nomMois;
 }
 
 }

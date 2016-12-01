@@ -24,19 +24,28 @@
 #include "Rendu/FenetreNouvelleRace.h"
 #include "Etats/Ferme.h"
 #include "Etats/Temps.h"
+#include "moteur/Moteur.h"
+#include "moteur/CommandeAfficherFenetre.h"
+#include <iostream>
+#include <thread>
+
+//#define TEST
+
+#ifdef TEST
 #include "Etats/Race.h"
 #include "Etats/Elevage.h"
-#include <iostream>
+
 #include "Etats/AnimalFemelle.h"
 #include "Etats/Animal.h"
 #include "Etats/AnimalMale.h"
-#include "moteur/Moteur.h"
 #include "moteur/PasserMoisSuivant.h"
 #include "moteur/CommandeVendreBete.h"
 #include "moteur/CommandeNouvelElevage.h"
 #include "moteur/CommandeAccouplerBete.h"
+#include "moteur/CommandeNouvelleBete.h"
+#include "moteur/CommandeInitialiserFermeTemps.h"
 
-#define TEST
+#endif
 
 using namespace Rendu;
 using namespace Etats;
@@ -47,7 +56,7 @@ int main(int argc, char *argv[]) {
     // initialize resources, if needed
     // Q_INIT_RESOURCE(resfile);
 
-    //QApplication app(argc, argv);
+    QApplication app(argc, argv);
     
     /*DbManager* dbConn;
     
@@ -81,17 +90,33 @@ int main(int argc, char *argv[]) {
             double budget=feneteInit->getBudget();
             double emprunt=feneteInit->getEmprunts();
             dbConn->chargerFerme(feneteInit);
-        }
+        }std::cout<< "date : " << temps->getMois()+1 << "/"<<temps->getAnnee() <<" | ferme : Budget: "<< ferme->getBudget() <<" € | Emprunts:"<< ferme->getEmprunt()<<" €\n\n"<<std::endl;
         
         
     }//*/
 #ifdef TEST
     // INITIALISATION DE LA FERME POUR TEST
     
+    std::cout<< "test init"<<std::endl;
+    std::shared_ptr<Moteur> moteur=std::make_shared<Moteur>();std::cout<< "test moteur créé"<<std::endl;
+    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>();      
+            
+    std::cout<< "test ferme pointeur créé"<<std::endl;
+    std::shared_ptr<Temps> temps= std::make_shared<Temps>();
+    std::cout<< "test temps créé"<<std::endl;
+    /*ferme->setBudget(6573635.0);
+    ferme->emprunter(435.0);
+    temps->setAnnee(2016);
+    temps->setMois(7);*/
     
-    std::shared_ptr<Moteur> moteur=std::make_shared<Moteur>();
-    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>(54245,865);
-    std::shared_ptr<Temps> temps= std::make_shared<Temps>(11, 2016);
+    std::shared_ptr<CommandeInitialiserFermeTemps> initFrmTps = std::make_shared<CommandeInitialiserFermeTemps>(ferme, temps, 335646, 543, 10, 2016);
+    std::cout<< "test création commande"<<std::endl;
+    moteur->ajouterCommande(initFrmTps);
+    std::cout<< "test rajout commande liste"<<std::endl;
+    moteur->execCommande();
+    std::cout<< "test execution commande"<<std::endl; std::cout<< "test execution commande"<<std::endl;
+    
+    std::cout<< "date : " << temps->getMois()+1 << "/"<<temps->getAnnee() <<" | ferme : Budget: "<< ferme->getBudget() <<" € | Emprunts:"<< ferme->getEmprunt()<<" €\n\n"<<std::endl;
     
     std::shared_ptr<Race> vacheLimousine=std::make_shared<Race>("Bos Taurus Limousin", 264, 264, 1100, 800, 11, 15, 0.55, 0.46, 9, 2, 1, 45, 2.80, 3);
     ferme->ajouterRaceListe(vacheLimousine);
@@ -136,7 +161,7 @@ int main(int argc, char *argv[]) {
     {
         AnimalMale* pointeurAnimalMale=static_cast<AnimalMale*>(vache1.get());
         AnimalFemelle* pointeurAnimalFemelle=static_cast<AnimalFemelle*>(vache2.get());
-        //AnimalMale* ptrAnMale;std::cout<< "l'animal ptrAnMale, était à la base " << /*vache1->getSexe()<<std::endl;/*///typeid(ptrAnMale).name()<<std::endl;
+        //AnimalMale* ptrAnMale;std::cout<< "l'animal ptrAnMale, était à la base " << vache1->getSexe()<<std::endl;typeid(ptrAnMale).name()<<std::endl;
         //pointeurAnimalMale->accoupler(pointeurAnimalFemelle);
         //std::cout<< "l'animal vache1, était à la base " << /*vache1->getSexe()<<std::endl;/*/typeid(pointeurAnimalMale).name()<< " et s'appelle " << pointeurAnimalMale->getIDAnimal()<<std::endl;
         //std::cout<< "l'animal vache2, était à la base " << /*vache1->getSexe()<<std::endl;/*/typeid(pointeurAnimalFemelle).name()<< " et s'appelle " << pointeurAnimalFemelle->getIDAnimal()<<std::endl;
@@ -156,9 +181,13 @@ int main(int argc, char *argv[]) {
     
     std::shared_ptr<CommandeNouvelElevage> nouvelElevage=std::make_shared<CommandeNouvelElevage>("Deuxieme Elevage de vache", vacheLimousine,temps,ferme);
     moteur->ajouterCommande(nouvelElevage);
+    moteur->execCommande();
     
     std::shared_ptr<CommandeAccouplerBete> accouplerBete = std::make_shared<CommandeAccouplerBete>(vache1, vache2);
     moteur->ajouterCommande(accouplerBete);
+    
+    std::shared_ptr<CommandeNouvelleBete> cNouvelleBete= std::make_shared<CommandeNouvelleBete>(ferme, ferme->getElevages()[1], false, 7, 2015, std::vector<std::string>(14)={"E115", "BOSTAULIM1-M31","E117", "E118","E119", "E120","E121", "E122", "E123", "E124","E125", "E126","E127", "E128"});
+    moteur->ajouterCommande(cNouvelleBete);
     
     moteur->execCommande();
     
@@ -190,7 +219,7 @@ int main(int argc, char *argv[]) {
     {
         if(elevage->getEtat()==EtatElevage::ACTIF)
         {
-           std::cout<<"elevage"<< elevage->getNomElevage()<<".  |  race de l'elevage"<< elevage->getRace()->getNomRace()<<std::endl;
+           std::cout<<"elevage "<< elevage->getNomElevage()<<".  |  race de l'elevage"<< elevage->getRace()->getNomRace()<<std::endl;
            for(auto a : elevage->getAnimaux())
            {
                if(a->getEtat()==EtatAnimal::VIVANT)
@@ -216,7 +245,7 @@ int main(int argc, char *argv[]) {
     {
         if(elevage->getEtat()==EtatElevage::ACTIF)
         {
-           std::cout<<"elevage"<< elevage->getNomElevage()<<".  |  race de l'elevage"<< elevage->getRace()->getNomRace()<<std::endl;
+           std::cout<<"elevage "<< elevage->getNomElevage()<<".  |  race de l'elevage"<< elevage->getRace()->getNomRace()<<std::endl;
            for(auto a : elevage->getAnimaux())
            {
                if(a->getEtat()==EtatAnimal::VIVANT)
@@ -232,19 +261,38 @@ int main(int argc, char *argv[]) {
     ferme.reset(); temps.reset(); vacheLimousine.reset(); elevageVache.reset();
     
     
-#endif
+#else
+    std::shared_ptr<Moteur> moteur=std::make_shared<Moteur>();
+    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>();
+    std::shared_ptr<Temps> temps= std::make_shared<Temps>();
     
-    /*FenetrePremiereOuverture feneteInit(ferme, temps);//dbConn);
-    feneteInit.show();
+    //test
+    std::shared_ptr<Race> vacheLimousine=std::make_shared<Race>("Bos Taurus Limousin", 264, 264, 1100, 800, 11, 15, 0.55, 0.46, 9, 2, 1, 45, 2.80, 3);
+    ferme->ajouterRaceListe(vacheLimousine);
     
-    FenetrePrincipale fenPrincipale(ferme, temps); // = new FenetrePrincipale();
-    fenPrincipale.show();
     
-    FenetreNouvelleRace fenetreNouvelleRace;
-    fenetreNouvelleRace.show();
-    FenetreNouvelElevage fenetreNouvelElevage;
-    fenetreNouvelElevage.show();//*/
+    FenetrePrincipale* fenPrincipale;
+    FenetreNouvelleRace * fenNouvelleRace= new FenetreNouvelleRace(ferme, temps, moteur);
+    FenetreNouvelElevage* fenNouvelElevage=new FenetreNouvelElevage(ferme, temps, moteur, fenPrincipale);
+    fenPrincipale=new FenetrePrincipale(ferme, temps, moteur, fenNouvelleRace, fenNouvelElevage);
+    FenetrePremiereOuverture* feneteInit=new FenetrePremiereOuverture(ferme, temps, moteur, fenPrincipale);
+        //feneteInit.show();
     
+    std::thread threadMoteur(&Moteur::execCommande);
+    //std::thread threadActualisationRendu(&FenetrePrincipale::actualiserFenetre());
+    
+    std::shared_ptr<CommandeAfficherFenetre> afficheFenetre = std::make_shared<CommandeAfficherFenetre>(ferme, temps, feneteInit);
+    moteur->ajouterCommande(afficheFenetre);
+    
+    
+    
+    //fenPrincipale.show();
+    
+    
+    //fenetreNouvelleRace.show();
+    
+    //fenetreNouvelElevage.show();//*/
+#endif    
     /*QWidget *firstPageWidget = new QWidget;
     QWidget *secondPageWidget = new QWidget;
     QWidget *thirdPageWidget = new QWidget;
@@ -256,7 +304,7 @@ int main(int argc, char *argv[]) {
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(stackedLayout);
-    setLayout(mainLayout);
+    setLayout(mainLayout);LL
  */   
     // create and show your widgets here
     
@@ -275,5 +323,5 @@ int main(int argc, char *argv[]) {
     //QQuickWindow fenetre();
     
     
-    //return app.exec();
+    return app.exec();
 }

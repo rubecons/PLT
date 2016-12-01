@@ -16,10 +16,24 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QMenuBar>
+#include <QString>
+#include <iostream>
+#include "moteur/CommandeAfficherFenetre.h"
+
 namespace Rendu{
 
 FenetrePrincipale::FenetrePrincipale()
 {
+    
+}
+
+FenetrePrincipale::FenetrePrincipale(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetreNouvelleRace *fenNouvRace, FenetreNouvelElevage *fenNouvElevage)
+{
+    ferme=frm;
+    temps=tps;
+    moteu=mot;
+    fenetreNouvelleRace=fenNouvRace;
+    fenetreNouvelElevage=fenNouvElevage;
     //new QMainWindow;// fenetrePrincipale;
  
     // Configuration de la fenetre principale
@@ -33,6 +47,7 @@ FenetrePrincipale::FenetrePrincipale()
     QStatusBar* barreStatus=creationStatusBar();
     creationZoneCentrale();
 }
+
 void FenetrePrincipale::creationMenuBar()
 //QMenuBar* FenetrePrincipale::creationMenuBar()
 {
@@ -109,14 +124,12 @@ QStatusBar* FenetrePrincipale::creationStatusBar()
     QLabel* texteStatusBar= new QLabel(QString(" "), this, Qt::FramelessWindowHint);
     barreStatut -> addWidget (texteStatusBar,500);
     texteStatusBar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    //*
-    QLabel* texteStatusBar2= new QLabel(QString("mois année"), this, Qt::FramelessWindowHint);
+
     barreStatut -> addPermanentWidget (texteStatusBar2, 15);
     texteStatusBar2->setFrameStyle(QFrame::Panel | QFrame::Sunken);
     
-    QLabel* texteStatusBar3= new QLabel(QString("Budget = 0 €"), this, Qt::FramelessWindowHint);
     barreStatut -> addPermanentWidget (texteStatusBar3, 15);
-    texteStatusBar3->setFrameStyle(QFrame::Panel | QFrame::Sunken);//*/
+    texteStatusBar3->setFrameStyle(QFrame::Panel | QFrame::Sunken);
     /*/QWidgetAction* actionStatusBar = new QWidgetAction(this);
     //actionStatus
     barreStatut -> addPermanentWidget (actionStatusBar, 15);
@@ -141,7 +154,7 @@ void FenetrePrincipale::creationZoneCentrale()
             QScrollArea* aireScrollListeElevage = new QScrollArea;//on créée une zone déroulante
             layoutVerticalDeGauche-> addWidget (aireScrollListeElevage);
             aireScrollListeElevage->setFixedWidth(150);
-                QListWidget* listeElevage = new QListWidget(aireScrollListeElevage);//On créée la liste d'élevages
+                QListWidget* listeElevage = new QListWidget();//aireScrollListeElevage);//On créée la liste d'élevages
                 aireScrollListeElevage->setWidget(listeElevage);//On intègre la liste d'élevages à la zone déroulante
                 aireScrollListeElevage->setWidgetResizable(true);
                 /*
@@ -151,12 +164,8 @@ void FenetrePrincipale::creationZoneCentrale()
         
             
             //layoutVerticalDeGauche-> addWidget (listeElevage);//On intègre la zone déroulante en haut du layout verticale à gauche
-            QPushButton* boutonAjouterElevage=creationBoutonDansLayout("Nouvel Élevage", zoneCentrale, layoutVerticalDeGauche, SIGNAL(clicked()), qApp, SLOT(), true);
-            /*/
-            QPushButton* boutonAjouterElevage = new QPushButton(QString("Nouvel Élevage"), this);//On créée un bouton de nouvel élevage
-            QObject::connect(boutonAjouterElevage, SIGNAL(clicked()), qApp, SLOT());
-            layoutVerticalDeGauche->addWidget(boutonAjouterElevage);//On rajoute le bouton de nouvel élevage en 2eme position verticale du layout verticale de gauche
-                    //*/
+            QPushButton* boutonAjouterElevage=creationBoutonDansLayout("Nouvel Élevage", zoneCentrale, layoutVerticalDeGauche, SIGNAL(clicked()), this, SLOT(nouvelElevage()), true);
+            
         //QScrollArea* aireScrollContenuElevage = new QScrollArea;//on créée une zone déroulante
         //layoutPrincipal -> addWidget(aireScrollContenuElevage);
     //zoneCentrale->
@@ -234,7 +243,30 @@ void FenetrePrincipale::creationToolBar()
 FenetrePrincipale::FenetrePrincipale(const FenetrePrincipale& orig) {
 }
 */
-FenetrePrincipale::~FenetrePrincipale() {
+FenetrePrincipale::~FenetrePrincipale()
+{
+}
+
+void FenetrePrincipale::setTexteStatusBar2 (std::string texte)
+{
+    texteStatusBar2->setText(texte.c_str());
+}
+
+void FenetrePrincipale::setTexteStatusBar3 (std::string texte)
+{
+    texteStatusBar3->setText(texte.c_str());
+}
+
+void FenetrePrincipale::nouvelElevage ()
+{
+    std::shared_ptr<moteur::CommandeAfficherFenetre> afficheFenetre = std::make_shared<moteur::CommandeAfficherFenetre>(ferme, temps, fenetreNouvelElevage);
+    moteu->ajouterCommande(afficheFenetre);
+    //moteu->execCommande(ferme, temps, this);
+}
+
+void FenetrePrincipale::actualiserFenetre ()
+{
+    
 }
 
 }

@@ -9,6 +9,11 @@
 
 namespace Etats{
 
+Ferme::Ferme()
+{
+}    
+    
+    
 Ferme::Ferme (double b, double em) 
 {
     budget=b;

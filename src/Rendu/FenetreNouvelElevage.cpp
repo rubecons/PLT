@@ -5,11 +5,13 @@
  */
 
 #include "FenetreNouvelElevage.h"
+#include "moteur/CommandeNouvelElevage.h"
+#include "Etats/Race.h"
 #include <QComboBox>//
-
+#include <iostream>
 #include <QFormLayout>//
 #include <QHBoxLayout>//
-
+#include <QString>
 #include <QLineEdit>//
 
 #include <QVBoxLayout>//
@@ -18,6 +20,16 @@ namespace Rendu{
 
 FenetreNouvelElevage::FenetreNouvelElevage()
 {
+    
+}
+
+FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot,  FenetrePrincipale *fenPrin)
+{
+    ferme=frm;
+    temps=tps;
+    moteu=mot;
+    fenetrePrincipale=fenPrin;
+    
     this->setWindowTitle(QString("Nouvel Élevage"));
     
     this->setWindowIcon(QIcon("./rapport/taureau.png"));
@@ -31,18 +43,24 @@ FenetreNouvelElevage::FenetreNouvelElevage()
     
             QLineEdit* nomElevage= new QLineEdit;//("Nom de la race");
             formulaireNouvelElevage->addRow("Nom du nouvel élevage :", nomElevage);
+            QObject::connect(nomElevage, SIGNAL(textChanged(const QString&)), this, SLOT(setNomElevage(const QString&)));
             
             QComboBox* selectionRace = new QComboBox(this);
             selectionRace->addItem("Choisir une race...");
             selectionRace->addItem("Nouvelle race");
-            selectionRace->addItem("elevage3");
+            for(auto r : ferme->getRaces())
+            {
+                //std::cout<< r->getNomRace()<<std::endl;
+                selectionRace->addItem((r->getNomRace()).c_str());
+            }
             formulaireNouvelElevage->addRow("Race élevée :", selectionRace);
+            QObject::connect(selectionRace, SIGNAL(currentIndexChanged(int)), this, SLOT(setIndexRace(int)));
             
         QHBoxLayout* layoutBoutons = new QHBoxLayout;
         layoutVerticalNvlElevage->addLayout(layoutBoutons);
     
-            QPushButton* boutonAnnuler =creationBoutonDansLayout("Annuler", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(), true);
-            QPushButton* boutonEnregistrerNouvelleRace=creationBoutonDansLayout("Créer un nouvel élevage", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(), true);
+            QPushButton* boutonAnnuler =creationBoutonDansLayout("Annuler", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(close()), true);
+            QPushButton* boutonEnregistrerNouvelleRace=creationBoutonDansLayout("Créer un nouvel élevage", this, layoutBoutons, SIGNAL(clicked()), this, SLOT(enregistrerNouvelElevage ()), true);
     //setLayout(layoutVertical);
 }
 
@@ -59,6 +77,37 @@ QPushButton* FenetreNouvelElevage::creationBoutonDansLayout(const QString &nom, 
 FenetreNouvelElevage::~FenetreNouvelElevage()
 {
     
-}/*//*/
+}
+void FenetreNouvelElevage::enregistrerNouvelElevage ()
+{
+    //std::cout<< "test : nomElevage : "<<nomElevage <<" RaceChoisie : "<< indexRace <<std::endl;
+    switch(indexRace)
+    {       
+        case 0:
+        {break;}
+        case 1:
+        {
+            
+            break;
+        }
+        default:
+        {
+            std::shared_ptr<moteur::CommandeNouvelElevage> nouvelElevage=std::make_shared<moteur::CommandeNouvelElevage>(nomElevage, ferme->getRaces()[indexRace-2],temps,ferme);
+            moteu->ajouterCommande(nouvelElevage);
+            //moteu->execCommande(ferme, temps, fenetrePrincipale);
+            close();
+        }
+    }
+}
+
+void FenetreNouvelElevage::setNomElevage (const QString &nom)
+{
+    nomElevage=nom.toStdString();
+}
+
+void FenetreNouvelElevage::setIndexRace (int index)
+{
+    indexRace=index;
+}
 
 }
