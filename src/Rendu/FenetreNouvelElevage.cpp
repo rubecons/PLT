@@ -23,11 +23,12 @@ FenetreNouvelElevage::FenetreNouvelElevage()
     
 }
 
-FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot,  FenetrePrincipale *fenPrin)
+FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, std::shared_ptr<Etats::EtatsObserver> observ, FenetrePrincipale *fenPrin)
 {
     ferme=frm;
     temps=tps;
     moteu=mot;
+    observer=observ;
     fenetrePrincipale=fenPrin;
     
     this->setWindowTitle(QString("Nouvel Élevage"));
@@ -92,8 +93,9 @@ void FenetreNouvelElevage::enregistrerNouvelElevage ()
         }
         default:
         {
-            std::shared_ptr<moteur::CommandeNouvelElevage> nouvelElevage=std::make_shared<moteur::CommandeNouvelElevage>(nomElevage, ferme->getRaces()[indexRace-2],temps,ferme);
-            moteu->ajouterCommande(nouvelElevage);
+            std::shared_ptr<moteur::CommandeNouvelElevage> commandeNouvelElevage=std::make_shared<moteur::CommandeNouvelElevage>(nomElevage, ferme->getRaces()[indexRace-2],temps,ferme, observer, fenetrePrincipale);
+            moteu->ajouterCommande(commandeNouvelElevage);
+            
             //moteu->execCommande(ferme, temps, fenetrePrincipale);
             close();
         }

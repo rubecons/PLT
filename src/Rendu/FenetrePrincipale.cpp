@@ -154,7 +154,7 @@ void FenetrePrincipale::creationZoneCentrale()
             QScrollArea* aireScrollListeElevage = new QScrollArea;//on créée une zone déroulante
             layoutVerticalDeGauche-> addWidget (aireScrollListeElevage);
             aireScrollListeElevage->setFixedWidth(150);
-                QListWidget* listeElevage = new QListWidget();//aireScrollListeElevage);//On créée la liste d'élevages
+                //QListWidget* listeElevage = new QListWidget();//aireScrollListeElevage);//On créée la liste d'élevages
                 aireScrollListeElevage->setWidget(listeElevage);//On intègre la liste d'élevages à la zone déroulante
                 aireScrollListeElevage->setWidgetResizable(true);
                 /*
@@ -177,7 +177,7 @@ void FenetrePrincipale::creationZoneCentrale()
     //*/
         QVBoxLayout* layoutVerticalDeDroite= new QVBoxLayout;
         layoutPrincipal->addLayout(layoutVerticalDeDroite);
-            QStackedLayout *stackedLayout = new QStackedLayout(zoneCentrale);
+            //QStackedLayout *stackedLayout = new QStackedLayout(zoneCentrale);
             //aireScrollContenuElevage->setWidget(stackedLayout);
             layoutVerticalDeDroite->addLayout(stackedLayout);
             connect(listeElevage, SIGNAL(currentRowChanged(int)), stackedLayout, SLOT(setCurrentIndex(int)));
@@ -200,10 +200,10 @@ void FenetrePrincipale::creationZoneCentrale()
     
     QLabel *elevage3 = new QLabel("page3");
     stackedLayout->addWidget(elevage3);*/
-    
+    /*
     creationElevage("elevage1",listeElevage ,stackedLayout);
     creationElevage("elevage2",listeElevage ,stackedLayout);
-    creationElevage("elevage3",listeElevage ,stackedLayout);
+    creationElevage("elevage3",listeElevage ,stackedLayout);//*/
     
     
    /* QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -211,11 +211,11 @@ void FenetrePrincipale::creationZoneCentrale()
     zoneCentrale->setLayout(mainLayout);//*/
 }
 
-/*QWidget* */void FenetrePrincipale::creationElevage(const QString &nom,QListWidget* listeParent , QStackedLayout* stackedLayout)
+/*QWidget* */void FenetrePrincipale::addItemListeElevage(std::string nomElevage)
 {
-    listeParent -> addItem(nom);
-    QWidget *item= new QWidget;//(stackedLayout);//, this, QListWidgetItem::Type);
-    stackedLayout -> addWidget(item);
+    listeElevage -> addItem(nomElevage.c_str());
+    //QWidget *item= new QWidget;//(stackedLayout);//, this, QListWidgetItem::Type);
+    //stackedLayout -> addWidget(item);
     
     //return item;
 }
@@ -262,11 +262,6 @@ void FenetrePrincipale::nouvelElevage ()
     std::shared_ptr<moteur::CommandeAfficherFenetre> afficheFenetre = std::make_shared<moteur::CommandeAfficherFenetre>(ferme, temps, fenetreNouvelElevage);
     moteu->ajouterCommande(afficheFenetre);
     //moteu->execCommande(ferme, temps, this);
-}
-
-void FenetrePrincipale::actualiserFenetre ()
-{
-    
 }
 
 }

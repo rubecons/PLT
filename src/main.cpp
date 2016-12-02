@@ -26,6 +26,7 @@
 #include "Etats/Temps.h"
 #include "moteur/Moteur.h"
 #include "moteur/CommandeAfficherFenetre.h"
+#include "Etats/EtatsObserver.h"
 #include <iostream>
 #include <thread>
 
@@ -262,6 +263,7 @@ int main(int argc, char *argv[]) {
     
     
 #else
+    std::shared_ptr<EtatsObserver> observer = std::make_shared<EtatsObserver>();
     std::shared_ptr<Moteur> moteur=std::make_shared<Moteur>();
     std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>();
     std::shared_ptr<Temps> temps= std::make_shared<Temps>();
@@ -273,13 +275,13 @@ int main(int argc, char *argv[]) {
     
     FenetrePrincipale* fenPrincipale;
     FenetreNouvelleRace * fenNouvelleRace= new FenetreNouvelleRace(ferme, temps, moteur);
-    FenetreNouvelElevage* fenNouvelElevage=new FenetreNouvelElevage(ferme, temps, moteur, fenPrincipale);
+    FenetreNouvelElevage* fenNouvelElevage=new FenetreNouvelElevage(ferme, temps, moteur, observer,fenPrincipale);
     fenPrincipale=new FenetrePrincipale(ferme, temps, moteur, fenNouvelleRace, fenNouvelElevage);
     FenetrePremiereOuverture* feneteInit=new FenetrePremiereOuverture(ferme, temps, moteur, fenPrincipale);
         //feneteInit.show();
     
-    std::thread threadMoteur(&Moteur::execCommande);
-    std::thread threadActualisationRendu(&EtatsObserver::actualiserRendu());
+    std::thread threadMoteur(&Moteur::execCommande, moteur);
+    std::thread threadActualisationRendu(&EtatsObserver::actualiserRendu, observer);
     
     std::shared_ptr<CommandeAfficherFenetre> afficheFenetre = std::make_shared<CommandeAfficherFenetre>(ferme, temps, feneteInit);
     moteur->ajouterCommande(afficheFenetre);

@@ -6,6 +6,7 @@
 
 #include "Moteur.h"
 #include <QLabel>
+#include <iostream>
 
 namespace moteur
 {
@@ -22,16 +23,18 @@ void Moteur::ajouterCommande (std::shared_ptr<Commande> com)
     corentinFDP.unlock();
 }
 
-void Moteur::execCommande (std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, Rendu::FenetrePrincipale *fenetrePpale)
+void Moteur::execCommande ()
 {
     while(1)
-    {
+    {std::cout<<"t";
         while(mesCommandes.empty()==false)
         {
             corentinFDP.lock();
+            //std::cout<<"mutex lock ";
             mesCommandes.back()->effectuerCommande();
             mesCommandes.pop_back();
             corentinFDP.unlock();
+            //std::cout<<"mutex unlock ";
         }
     }
     
