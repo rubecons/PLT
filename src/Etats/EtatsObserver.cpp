@@ -5,6 +5,8 @@
  */
 
 #include "EtatsObserver.h"
+#include <iostream>
+//#define MULTITHREAD
 
 namespace Etats
 {
@@ -13,23 +15,45 @@ EtatsObserver::EtatsObserver ()
 
 void EtatsObserver::ajouterNotifications (std::shared_ptr<NotificationChangementEtat> notif)
 {
+#ifdef MULTITHREAD    
     mutexNotification.lock();
+#endif
     mesNotifications.push_back(notif);
+#ifdef MULTITHREAD
     mutexNotification.unlock();
+#endif
 }
 
 void EtatsObserver::actualiserRendu ()
-{
+{std::cout<< "test : actualiser rendu"<<std::endl;
+#ifdef MULTITHREAD    
     while(1)
     {
+#endif
         while(mesNotifications.empty()==false)
         {
+#ifdef MULTITHREAD
             mutexNotification.lock();
-            mesNotifications.back()->actualiserChangementRendu();
+#endif
+            mesNotifications.back()->actualiserChangementRendu(temps, ferme);
             mesNotifications.pop_back();
+#ifdef MULTITHREAD
             mutexNotification.unlock();
+#endif
         }
+#ifdef MULTITHREAD
     }
+#endif
+}
+
+void EtatsObserver::setFerme (std::shared_ptr<Ferme> frm)
+{
+    ferme=frm;
+}
+
+void EtatsObserver::setTemps (std::shared_ptr<Temps> tps)
+{
+    temps=tps;
 }
 
 }

@@ -8,6 +8,8 @@
 #include <QLabel>
 #include <iostream>
 
+//#define MULTITHREAD
+
 namespace moteur
 {
     
@@ -18,32 +20,38 @@ Moteur::Moteur ()
 
 void Moteur::ajouterCommande (std::shared_ptr<Commande> com)
 {
+#ifdef MULTITHREAD
     corentinFDP.lock();
+#endif
     mesCommandes.push_back(com);
+#ifdef MULTITHREAD
     corentinFDP.unlock();
+#endif
 }
 
 void Moteur::execCommande ()
 {
+#ifdef MULTITHREAD
     while(1)
     {std::cout<<"t";
+#endif    
         while(mesCommandes.empty()==false)
         {
+#ifdef MULTITHREAD
             corentinFDP.lock();
+#endif
             //std::cout<<"mutex lock ";
             mesCommandes.back()->effectuerCommande();
             mesCommandes.pop_back();
+#ifdef MULTITHREAD
             corentinFDP.unlock();
+#endif
             //std::cout<<"mutex unlock ";
         }
+#ifdef MULTITHREAD
     }
+#endif    
     
-    
-    //const std::string date=tps->getNomMois()[tps->getMois()].append(" ").append(std::to_string(tps->getAnnee()));
-    //const std::string budget=std::string("Budget = ").append(std::to_string(frm->getBudget())).append(" €");
-    
-    //fenetrePpale->setTexteStatusBar2(date);//->setText(date.c_str());
-    //fenetrePpale->setTexteStatusBar3(budget);//->setText(budget.c_str());
 }
             
 }

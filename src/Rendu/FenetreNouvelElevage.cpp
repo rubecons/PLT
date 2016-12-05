@@ -23,13 +23,13 @@ FenetreNouvelElevage::FenetreNouvelElevage()
     
 }
 
-FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, std::shared_ptr<Etats::EtatsObserver> observ, FenetrePrincipale *fenPrin)
+FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, std::shared_ptr<Etats::EtatsObserver> observ)
 {
     ferme=frm;
     temps=tps;
     moteu=mot;
     observer=observ;
-    fenetrePrincipale=fenPrin;
+    //fenetrePrincipale=fenPrin;
     
     this->setWindowTitle(QString("Nouvel Élevage"));
     
@@ -79,10 +79,16 @@ FenetreNouvelElevage::~FenetreNouvelElevage()
 {
     
 }
+
+void FenetreNouvelElevage::setFenetrePrincipale (FenetrePrincipale *fenPrin)
+{
+    fenetrePrincipale=fenPrin;
+}
+
 void FenetreNouvelElevage::enregistrerNouvelElevage ()
 {
-    //std::cout<< "test : nomElevage : "<<nomElevage <<" RaceChoisie : "<< indexRace <<std::endl;
-    switch(indexRace)
+    std::cout<< "test : nomElevage : "<<nomElevage <<" RaceChoisie : "<< indexRace <<std::endl;
+    /*switch(indexRace)
     {       
         case 0:
         {break;}
@@ -92,14 +98,16 @@ void FenetreNouvelElevage::enregistrerNouvelElevage ()
             break;
         }
         default:
-        {
+        {//*/
             std::shared_ptr<moteur::CommandeNouvelElevage> commandeNouvelElevage=std::make_shared<moteur::CommandeNouvelElevage>(nomElevage, ferme->getRaces()[indexRace-2],temps,ferme, observer, fenetrePrincipale);
             moteu->ajouterCommande(commandeNouvelElevage);
             
-            //moteu->execCommande(ferme, temps, fenetrePrincipale);
+            moteu->execCommande();
             close();
+            std::cout<< "fin slot "<<std::endl;
+        /*
         }
-    }
+    }//*/
 }
 
 void FenetreNouvelElevage::setNomElevage (const QString &nom)

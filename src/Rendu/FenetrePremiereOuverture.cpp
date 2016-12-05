@@ -38,11 +38,12 @@ FenetrePremiereOuverture::FenetrePremiereOuverture()
     
 }
 
-FenetrePremiereOuverture::FenetrePremiereOuverture(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetrePrincipale* fenPrin)
+FenetrePremiereOuverture::FenetrePremiereOuverture(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetrePrincipale* fenPrin, std::shared_ptr<Etats::EtatsObserver> obs)
 {
     ferme=frm;
     temps=tps;
     moteu=mot;
+    observer=obs;
     fenetrePrincipale=fenPrin;
     //QSqlDatabase* dbConn) {
     this->setWindowTitle(QString("Initialisation"));
@@ -179,9 +180,9 @@ void FenetrePremiereOuverture::enregistrer()///*DbManager* dbC,*/ double budg, d
         std::shared_ptr<moteur::CommandeAfficherFenetre> afficheFenetre = std::make_shared<moteur::CommandeAfficherFenetre>(ferme, temps, fenetrePrincipale);
         moteu->ajouterCommande(afficheFenetre);
         
-        std::shared_ptr<moteur::CommandeInitialiserFermeTemps> initFrmTps = std::make_shared<moteur::CommandeInitialiserFermeTemps>(ferme, temps, budget, emprunts, mois, annee);
+        std::shared_ptr<moteur::CommandeInitialiserFermeTemps> initFrmTps = std::make_shared<moteur::CommandeInitialiserFermeTemps>(ferme, temps, budget, emprunts, mois, annee, fenetrePrincipale, observer);
         moteu->ajouterCommande(initFrmTps);
-        //moteu->execCommande(ferme, temps, fenetrePrincipale);
+        moteu->execCommande();
         //std::cout<< "date : " << temps->getMois()+1 << "/"<<temps->getAnnee() <<" | ferme : Budget: "<< ferme->getBudget() <<" € | Emprunts:"<< ferme->getEmprunt()<<" €\n\n"<<std::endl;
         //std::cout<<temps->getNomMois()[temps->getMois()]<<std::endl;
         this->close();

@@ -6,6 +6,7 @@
 
 #include "CommandeNouvelElevage.h"
 #include "Etats/NotificationChangementEtat.h"
+#include <iostream>
 
 namespace moteur
 {
@@ -30,10 +31,13 @@ CommandeNouvelElevage::~CommandeNouvelElevage ()
 
 void CommandeNouvelElevage::effectuerCommande ()
 {
+    std::cout<< "test : execution de la commande"<<std::endl;
     std::shared_ptr<Etats::Elevage> elevage = std::make_shared<Etats::Elevage>(nom, race, temps, ferme);
     ferme->ajouterElevageListe(elevage);
+    std::cout<< "test : creation de la notification"<<std::endl;
     std::shared_ptr<Etats::NotificationChangementEtat> notif =std::make_shared<Etats::NotificationChangementEtat>(Etats::ChangementEtatsID::LISTE_ELEVAGE_CHANGE, elevage, fenetrePrincipale);
     observer->ajouterNotifications(notif);
+    observer->actualiserRendu();
 }
 
 }

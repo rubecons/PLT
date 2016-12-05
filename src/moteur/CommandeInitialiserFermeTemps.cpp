@@ -5,6 +5,7 @@
  */
 
 #include "CommandeInitialiserFermeTemps.h"
+#include "Etats/NotificationChangementEtat.h"
 #include <iostream>
 
 namespace moteur
@@ -14,7 +15,7 @@ CommandeInitialiserFermeTemps::CommandeInitialiserFermeTemps ()
     
 }
 
-CommandeInitialiserFermeTemps::CommandeInitialiserFermeTemps (std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, double bud, double empr, int ms, int an)
+CommandeInitialiserFermeTemps::CommandeInitialiserFermeTemps (std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, double bud, double empr, int ms, int an, Rendu::FenetrePrincipale *fenPrincipale, std::shared_ptr<Etats::EtatsObserver> obs)
 {
     ferme=frm;
     temps=tps;
@@ -22,6 +23,8 @@ CommandeInitialiserFermeTemps::CommandeInitialiserFermeTemps (std::shared_ptr<Et
     emprunts=empr;
     mois=ms;
     annee=an;
+    fenetrePrincipale=fenPrincipale;
+    observer=obs;
 }
 
 CommandeInitialiserFermeTemps::~CommandeInitialiserFermeTemps ()
@@ -40,6 +43,10 @@ std::cout<< "date : " << temps->getMois()+1 << "/"<<temps->getAnnee() <<" | ferm
     ferme->emprunter(emprunts);
     temps->setAnnee(annee);
     temps->setMois(mois);
+    
+    std::shared_ptr<Etats::NotificationChangementEtat> notif= std::make_shared<Etats::NotificationChangementEtat>(Etats::ChangementEtatsID::BUDGET_TEMPS_CHANGE, std::shared_ptr<Etats::Elevage>(), fenetrePrincipale);
+    observer->ajouterNotifications(notif);
+    observer->actualiserRendu();
 }
 
 }

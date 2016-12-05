@@ -29,6 +29,8 @@ FenetrePrincipale::FenetrePrincipale()
 
 FenetrePrincipale::FenetrePrincipale(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetreNouvelleRace *fenNouvRace, FenetreNouvelElevage *fenNouvElevage)
 {
+    listeElevage=new QListWidget(this);
+    stackedLayout = new QStackedLayout(this);
     ferme=frm;
     temps=tps;
     moteu=mot;
@@ -212,8 +214,12 @@ void FenetrePrincipale::creationZoneCentrale()
 }
 
 /*QWidget* */void FenetrePrincipale::addItemListeElevage(std::string nomElevage)
-{
-    listeElevage -> addItem(nomElevage.c_str());
+{std::cout<< "rajouter item liste elevage"<<std::endl;
+//const QString nom(nomElevage.c_str())
+std::string *ptrNom = nomElevage.c_str();
+//std::cout<< nomElevage<<std::endl;
+    listeElevage -> addItem(ptrNom);
+    std::cout<< "fin rajouter item liste elevage"<<std::endl;
     //QWidget *item= new QWidget;//(stackedLayout);//, this, QListWidgetItem::Type);
     //stackedLayout -> addWidget(item);
     
@@ -261,7 +267,7 @@ void FenetrePrincipale::nouvelElevage ()
 {
     std::shared_ptr<moteur::CommandeAfficherFenetre> afficheFenetre = std::make_shared<moteur::CommandeAfficherFenetre>(ferme, temps, fenetreNouvelElevage);
     moteu->ajouterCommande(afficheFenetre);
-    //moteu->execCommande(ferme, temps, this);
+    moteu->execCommande();
 }
 
 }
