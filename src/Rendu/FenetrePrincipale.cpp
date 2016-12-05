@@ -29,7 +29,7 @@ FenetrePrincipale::FenetrePrincipale()
 
 FenetrePrincipale::FenetrePrincipale(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetreNouvelleRace *fenNouvRace, FenetreNouvelElevage *fenNouvElevage)
 {
-    listeElevage=new QListWidget(this);
+    listeElevage=new QListModel(this);
     stackedLayout = new QStackedLayout(this);
     ferme=frm;
     temps=tps;
