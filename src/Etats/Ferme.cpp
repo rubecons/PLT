@@ -13,16 +13,31 @@ Ferme::Ferme()
 {
 }    
     
-    
-Ferme::Ferme (double b, double em) 
+Ferme::Ferme (std::shared_ptr<Temps> tps) 
+{
+    temps=tps;
+}
+
+Ferme::Ferme (double b, double em,std::shared_ptr<Temps> tps) 
 {
     budget=b;
     argentEmprunte=em;
+    temps=tps;
 }
 
 Ferme::~Ferme ()
 {
     
+}
+
+void Ferme::setTemps (std::shared_ptr<Temps> tps)
+{
+    temps=tps;
+}
+
+std::shared_ptr<Temps> Ferme::getTemps ()
+{
+    return temps;
 }
 
 void Ferme::ajouterElevageListe (std::shared_ptr<Elevage> elevage)

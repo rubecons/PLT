@@ -35,8 +35,8 @@ void EtatsObserver::actualiserRendu ()
 #ifdef MULTITHREAD
             mutexNotification.lock();
 #endif
-            mesNotifications.back()->actualiserChangementRendu(temps, ferme);
-            mesNotifications.pop_back();
+            mesNotifications.front()->actualiserChangementRendu(ferme);
+            mesNotifications.pop_front();
 #ifdef MULTITHREAD
             mutexNotification.unlock();
 #endif
@@ -51,9 +51,9 @@ void EtatsObserver::setFerme (std::shared_ptr<Ferme> frm)
     ferme=frm;
 }
 
-void EtatsObserver::setTemps (std::shared_ptr<Temps> tps)
+/*void EtatsObserver::setTemps (std::shared_ptr<Temps> tps)
 {
     temps=tps;
-}
+}*/
 
 }

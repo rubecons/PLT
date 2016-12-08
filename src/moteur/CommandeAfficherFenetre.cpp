@@ -13,10 +13,10 @@ CommandeAfficherFenetre::CommandeAfficherFenetre ()
     
 }
 
-CommandeAfficherFenetre::CommandeAfficherFenetre (std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, QWidget* fen)
+CommandeAfficherFenetre::CommandeAfficherFenetre (std::shared_ptr<Etats::Ferme> frm, QWidget* fen)
 {
     ferme=frm;
-    temps=tps;
+    //temps=tps;
     fenetre=fen;
 }
 

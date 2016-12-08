@@ -17,9 +17,9 @@ PasserMoisSuivant::PasserMoisSuivant ()
     
 }
 
-PasserMoisSuivant::PasserMoisSuivant (std::shared_ptr<Etats::Temps> temps, std::shared_ptr<Etats::Ferme> ferme)
+PasserMoisSuivant::PasserMoisSuivant (std::shared_ptr<Etats::Ferme> ferme)
 {
-    this->temps=temps;
+    //this->temps=temps;
     this->ferme=ferme;
 }
 
@@ -30,7 +30,7 @@ PasserMoisSuivant::~PasserMoisSuivant ()
 
 void PasserMoisSuivant::effectuerCommande ()
 {
-    temps->upMois();
+    ferme->getTemps()->upMois();
     for (auto  elevage : ferme->getElevages())
     {
         if(elevage->getEtat()==Etats::EtatElevage::ACTIF)
@@ -40,7 +40,7 @@ void PasserMoisSuivant::effectuerCommande ()
                 if(a->getEtat()==Etats::EtatAnimal::VIVANT)
                 {
                     //Calcul de l'âge de l'animal
-                    int ageAnimal=(a->getIDElevage()->getTemps()->getMois()-a->getDateNaissance()[0])+(12*(a->getIDElevage()->getTemps()->getAnnee()-a->getDateNaissance()[1]));
+                    int ageAnimal=(a->getIDElevage()->getFerme()->getTemps()->getMois()-a->getDateNaissance()[0])+(12*(a->getIDElevage()->getFerme()->getTemps()->getAnnee()-a->getDateNaissance()[1]));
 
 
                     //calcul du poids de l'animal, et de ce qu'il a couté ce mois-ci + argent soustrait au budget de la ferme

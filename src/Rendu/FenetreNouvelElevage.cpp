@@ -23,10 +23,10 @@ FenetreNouvelElevage::FenetreNouvelElevage()
     
 }
 
-FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, std::shared_ptr<Etats::EtatsObserver> observ)
+FenetreNouvelElevage::FenetreNouvelElevage(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<moteur::Moteur> mot, std::shared_ptr<Etats::EtatsObserver> observ)
 {
     ferme=frm;
-    temps=tps;
+    //temps=tps;
     moteu=mot;
     observer=observ;
     //fenetrePrincipale=fenPrin;

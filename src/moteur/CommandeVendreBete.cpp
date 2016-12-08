@@ -11,7 +11,7 @@ namespace moteur
 
 CommandeVendreBete::CommandeVendreBete (){}
     
-CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Etats::Animal> anm, std::shared_ptr<Etats::Ferme> frm)// : animal(anm), ferme(ferme)
+CommandeVendreBete::CommandeVendreBete (std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Animal> anm)// : animal(anm), ferme(ferme)
 {
     animal=anm;
     ferme=frm;

@@ -18,6 +18,7 @@
 #include <QMenuBar>
 #include <QString>
 #include <iostream>
+#include <QListView>
 #include "moteur/CommandeAfficherFenetre.h"
 
 namespace Rendu{
@@ -27,12 +28,12 @@ FenetrePrincipale::FenetrePrincipale()
     
 }
 
-FenetrePrincipale::FenetrePrincipale(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot, FenetreNouvelleRace *fenNouvRace, FenetreNouvelElevage *fenNouvElevage)
+FenetrePrincipale::FenetrePrincipale(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<moteur::Moteur> mot, FenetreNouvelleRace *fenNouvRace, FenetreNouvelElevage *fenNouvElevage)
 {
-    listeElevage=new QListModel(this);
+    listeElevage=new QStringList;
     stackedLayout = new QStackedLayout(this);
     ferme=frm;
-    temps=tps;
+    //temps=tps;
     moteu=mot;
     fenetreNouvelleRace=fenNouvRace;
     fenetreNouvelElevage=fenNouvElevage;
@@ -156,8 +157,8 @@ void FenetrePrincipale::creationZoneCentrale()
             QScrollArea* aireScrollListeElevage = new QScrollArea;//on créée une zone déroulante
             layoutVerticalDeGauche-> addWidget (aireScrollListeElevage);
             aireScrollListeElevage->setFixedWidth(150);
-                //QListWidget* listeElevage = new QListWidget();//aireScrollListeElevage);//On créée la liste d'élevages
-                aireScrollListeElevage->setWidget(listeElevage);//On intègre la liste d'élevages à la zone déroulante
+                QListView* listeElevageView = new QListView();//aireScrollListeElevage);//On créée la liste d'élevages
+                aireScrollListeElevage->setWidget(listeElevageView);//On intègre la liste d'élevages à la zone déroulante
                 aireScrollListeElevage->setWidgetResizable(true);
                 /*
                 listeElevage -> addItem("elevage1");
@@ -182,7 +183,7 @@ void FenetrePrincipale::creationZoneCentrale()
             //QStackedLayout *stackedLayout = new QStackedLayout(zoneCentrale);
             //aireScrollContenuElevage->setWidget(stackedLayout);
             layoutVerticalDeDroite->addLayout(stackedLayout);
-            connect(listeElevage, SIGNAL(currentRowChanged(int)), stackedLayout, SLOT(setCurrentIndex(int)));
+            connect(listeElevageView, SIGNAL(currentRowChanged(int)), stackedLayout, SLOT(setCurrentIndex(int)));
     
             QHBoxLayout* layoutHorizontalBasDroite= new QHBoxLayout;
             layoutVerticalDeDroite->addLayout(layoutHorizontalBasDroite);

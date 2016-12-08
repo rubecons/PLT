@@ -41,8 +41,8 @@ void Moteur::execCommande ()
             corentinFDP.lock();
 #endif
             //std::cout<<"mutex lock ";
-            mesCommandes.back()->effectuerCommande();
-            mesCommandes.pop_back();
+            mesCommandes.front()->effectuerCommande();
+            mesCommandes.pop_front();
 #ifdef MULTITHREAD
             corentinFDP.unlock();
 #endif

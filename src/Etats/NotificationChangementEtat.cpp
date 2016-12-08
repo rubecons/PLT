@@ -21,7 +21,7 @@ NotificationChangementEtat::NotificationChangementEtat (ChangementEtatsID etatNo
 
 NotificationChangementEtat::~NotificationChangementEtat (){}
 
-void NotificationChangementEtat::actualiserChangementRendu (std::shared_ptr<Temps> tps, std::shared_ptr<Ferme> frm)
+void NotificationChangementEtat::actualiserChangementRendu (std::shared_ptr<Ferme> frm)
 {std::cout<< "test : execution de la notif"<<std::endl;
     if(id==ChangementEtatsID::TOUT_CHANGE)
     {
@@ -34,7 +34,7 @@ void NotificationChangementEtat::actualiserChangementRendu (std::shared_ptr<Temp
     }
     if(id==ChangementEtatsID::TOUT_CHANGE || id==ChangementEtatsID::BUDGET_TEMPS_CHANGE || id==ChangementEtatsID::ELEVAGE_CHANGE)//sert à actualiser le budget, la date (ne se produit quand il y a un modification du budget, ou un mois suivant, ou quand on achete ou vend une bete)
     {
-        const std::string date=tps->getNomMois()[tps->getMois()].append(" ").append(std::to_string(tps->getAnnee()));
+        const std::string date=frm->getTemps()->getNomMois()[frm->getTemps()->getMois()].append(" ").append(std::to_string(frm->getTemps()->getAnnee()));
         const std::string budget=std::string("Budget = ").append(std::to_string(frm->getBudget())).append(" €");
 
         fenetrePrincipale->setTexteStatusBar2(date);//->setText(date.c_str());

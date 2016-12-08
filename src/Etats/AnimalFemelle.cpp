@@ -37,8 +37,8 @@ std::array<int,2> AnimalFemelle::getDateDerniereMiseBas ()
 
 bool AnimalFemelle::accoupler (AnimalMale* male)
 {
-    int dureeDepuisDerniereGrossesse=((getIDElevage()->getTemps()->getMois()-dateDerniereMiseBas[0])+(12*(getIDElevage()->getTemps()->getAnnee()-dateDerniereMiseBas[1])));
-    int ageFemelle=(getIDElevage()->getTemps()->getMois()-getDateNaissance()[0])+(12*(getIDElevage()->getTemps()->getAnnee()-getDateNaissance()[1]));
+    int dureeDepuisDerniereGrossesse=((getIDElevage()->getFerme()->getTemps()->getMois()-dateDerniereMiseBas[0])+(12*(getIDElevage()->getFerme()->getTemps()->getAnnee()-dateDerniereMiseBas[1])));
+    int ageFemelle=(getIDElevage()->getFerme()->getTemps()->getMois()-getDateNaissance()[0])+(12*(getIDElevage()->getFerme()->getTemps()->getAnnee()-getDateNaissance()[1]));
     bool compatible=true;
     
     auto ancFem=getAncetres();
@@ -66,15 +66,15 @@ bool AnimalFemelle::accoupler (AnimalMale* male)
     if(male->getSexe() && isEnceinte==false && dureeDepuisDerniereGrossesse>getIDElevage()->getRace()->getDureeEntre2Grossesses() && compatible && ageFemelle>getIDElevage()->getRace()->getAgeMoyenMaturite(getSexe()))
     {
         isEnceinte=true;
-        dateAccouplement[0]=getIDElevage()->getTemps()->getMois();
-        dateAccouplement[1]=getIDElevage()->getTemps()->getAnnee();
+        dateAccouplement[0]=getIDElevage()->getFerme()->getTemps()->getMois();
+        dateAccouplement[1]=getIDElevage()->getFerme()->getTemps()->getAnnee();
         geniteur=std::shared_ptr<AnimalMale>(male);
         
-        dateDerniereMiseBas[1]=getIDElevage()->getTemps()->getAnnee()+(getIDElevage()->getRace()->getDureeGestation()/12);
-        if(((getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12)<(getIDElevage()->getTemps()->getMois()))
+        dateDerniereMiseBas[1]=getIDElevage()->getFerme()->getTemps()->getAnnee()+(getIDElevage()->getRace()->getDureeGestation()/12);
+        if(((getIDElevage()->getFerme()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12)<(getIDElevage()->getFerme()->getTemps()->getMois()))
         {
             dateDerniereMiseBas[1]=dateDerniereMiseBas[1]+1;
-            dateDerniereMiseBas[0]=(getIDElevage()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12;
+            dateDerniereMiseBas[0]=(getIDElevage()->getFerme()->getTemps()->getMois()+(getIDElevage()->getRace()->getDureeGestation()%12))%12;
         }
         std::cout<<"accouplement en cours"<<std::endl;
         return true;        
@@ -88,7 +88,7 @@ bool AnimalFemelle::accoupler (AnimalMale* male)
     
 bool AnimalFemelle::mettreBas ()//bool isEnceinte, std::array<int,2> dateAccouplement, int dureeGestation)
 {
-    if (isEnceinte && dateDerniereMiseBas[1]==getIDElevage()->getTemps()->getAnnee() && dateDerniereMiseBas[0]==getIDElevage()->getTemps()->getMois())
+    if (isEnceinte && dateDerniereMiseBas[1]==getIDElevage()->getFerme()->getTemps()->getAnnee() && dateDerniereMiseBas[0]==getIDElevage()->getFerme()->getTemps()->getMois())
     {
         //bool sexe;
         isEnceinte=false;
@@ -124,12 +124,12 @@ bool AnimalFemelle::mettreBas ()//bool isEnceinte, std::array<int,2> dateAccoupl
             bool sexeRandom= std::rand()%2;
             if(sexeRandom)
             {//il faut enlever les commentaires en dessous
-                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalMale>(getIDElevage(), getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
+                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalMale>(getIDElevage(), getIDElevage()->getFerme()->getTemps()->getMois(), getIDElevage()->getFerme()->getTemps()->getAnnee(), ancet);
                 getIDElevage()->rajouterAnimalListe(bebe);
             }
             else
             {
-                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalFemelle>(getIDElevage(), getIDElevage()->getTemps()->getMois(), getIDElevage()->getTemps()->getAnnee(), ancet);
+                std::shared_ptr<Animal> bebe= /*(std::shared_ptr<Animal>)*/ std::make_shared<AnimalFemelle>(getIDElevage(), getIDElevage()->getFerme()->getTemps()->getMois(), getIDElevage()->getFerme()->getTemps()->getAnnee(), ancet);
                 getIDElevage()->rajouterAnimalListe(bebe);
             }
             

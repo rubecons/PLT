@@ -12,11 +12,11 @@ namespace Etats{
     {
     }
     
-    Elevage::Elevage (std::string nom, std::shared_ptr<Race> race, std::shared_ptr<Temps> tps, std::shared_ptr<Ferme> frm)
+    Elevage::Elevage (std::string nom, std::shared_ptr<Race> race, std::shared_ptr<Ferme> frm)
     {
         nomElevage=nom;
         raceElevage=race;
-        temps=tps;
+        //temps=tps;
         ferme=frm;
         ferme->incrementNbElevage++;
         idElevage=(raceElevage->getIDRace())+std::to_string(ferme->incrementNbElevage);
@@ -41,9 +41,9 @@ namespace Etats{
                 if(animal->getIDAnimal()==IDanimal && animal->getEtat()==EtatAnimal::VIVANT)
                 {
                     double poids;
-                    if(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))<getRace()->getAgeMoyenMaturite(animal->getSexe()))
+                    if(((getFerme()->getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getFerme()->getTemps()->getAnnee()-animal->getDateNaissance()[1])))<getRace()->getAgeMoyenMaturite(animal->getSexe()))
                     {
-                        poids=(((getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getTemps()->getAnnee()-animal->getDateNaissance()[1])))*(double)((getRace()->getPoidsMoyenAdulte(animal->getSexe())-getRace()->getPoidsMoyenNaissance())/getRace()->getAgeMoyenMaturite(animal->getSexe())))+(getRace()->getPoidsMoyenNaissance());
+                        poids=(((getFerme()->getTemps()->getMois()-animal->getDateNaissance()[0])+(12*(getFerme()->getTemps()->getAnnee()-animal->getDateNaissance()[1])))*(double)((getRace()->getPoidsMoyenAdulte(animal->getSexe())-getRace()->getPoidsMoyenNaissance())/getRace()->getAgeMoyenMaturite(animal->getSexe())))+(getRace()->getPoidsMoyenNaissance());
                     }
                     else
                     {
@@ -96,10 +96,10 @@ namespace Etats{
         return raceElevage;
     }
     
-    std::shared_ptr<Temps> Elevage::getTemps ()
+    /*std::shared_ptr<Temps> Elevage::getTemps ()
     {
         return temps;
-    }
+    }*/
     
     void Elevage::setEtat (EtatElevage state)
     {
@@ -121,8 +121,8 @@ namespace Etats{
         raceElevage=race;
     }
     
-    void Elevage::setTemps (std::shared_ptr<Temps> tps)
+    /*void Elevage::setTemps (std::shared_ptr<Temps> tps)
     {
         temps=tps;
-    }
+    }//*/
 }

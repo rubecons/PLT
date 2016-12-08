@@ -15,11 +15,11 @@ CommandeNouvelElevage::CommandeNouvelElevage ()
     
 }
 
-CommandeNouvelElevage::CommandeNouvelElevage (std::string nm, std::shared_ptr<Etats::Race> rac, std::shared_ptr<Etats::Temps> tmp, std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::EtatsObserver> observ, Rendu::FenetrePrincipale *fenPrincipale)
+CommandeNouvelElevage::CommandeNouvelElevage (std::shared_ptr<Etats::Ferme> frm, std::string nm, std::shared_ptr<Etats::Race> rac, Rendu::FenetrePrincipale *fenPrincipale, std::shared_ptr<Etats::EtatsObserver> observ)
 {
     nom=nm;
     race=rac;
-    temps=tmp;
+    //temps=tmp;
     ferme=frm;
     observer=observ;
 }
@@ -32,7 +32,7 @@ CommandeNouvelElevage::~CommandeNouvelElevage ()
 void CommandeNouvelElevage::effectuerCommande ()
 {
     std::cout<< "test : execution de la commande"<<std::endl;
-    std::shared_ptr<Etats::Elevage> elevage = std::make_shared<Etats::Elevage>(nom, race, temps, ferme);
+    std::shared_ptr<Etats::Elevage> elevage = std::make_shared<Etats::Elevage>(nom, race, ferme);
     ferme->ajouterElevageListe(elevage);
     std::cout<< "test : creation de la notification"<<std::endl;
     std::shared_ptr<Etats::NotificationChangementEtat> notif =std::make_shared<Etats::NotificationChangementEtat>(Etats::ChangementEtatsID::LISTE_ELEVAGE_CHANGE, elevage, fenetrePrincipale);

@@ -23,10 +23,10 @@ FenetreNouvelleRace::FenetreNouvelleRace()
     
 }
    
-FenetreNouvelleRace::FenetreNouvelleRace(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<Etats::Temps> tps, std::shared_ptr<moteur::Moteur> mot)
+FenetreNouvelleRace::FenetreNouvelleRace(std::shared_ptr<Etats::Ferme> frm, std::shared_ptr<moteur::Moteur> mot)
 {
     ferme=frm;
-    temps=tps;
+    //temps=tps;
     moteu=mot;
     //QWidget* fenetreNouvRace = new QWidget;
     this->setWindowTitle(QString("Nouvelle Race"));

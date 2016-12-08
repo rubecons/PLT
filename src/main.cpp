@@ -264,13 +264,13 @@ int main(int argc, char *argv[]) {
     
     
 #else
+    std::shared_ptr<Temps> temps= std::make_shared<Temps>();
     std::shared_ptr<EtatsObserver> observer = std::make_shared<EtatsObserver>();
     std::shared_ptr<Moteur> moteur=std::make_shared<Moteur>();
-    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>();
-    std::shared_ptr<Temps> temps= std::make_shared<Temps>();
+    std::shared_ptr<Ferme> ferme=std::make_shared<Ferme>(temps);
     
     observer->setFerme(ferme);
-    observer->setTemps(temps);
+    //observer->setTemps(temps);
     
     
     //test
@@ -279,10 +279,10 @@ int main(int argc, char *argv[]) {
     
     
     //FenetrePrincipale* fenPrincipale;
-    FenetreNouvelleRace * fenNouvelleRace= new FenetreNouvelleRace(ferme, temps, moteur);
-    FenetreNouvelElevage* fenNouvelElevage=new FenetreNouvelElevage(ferme, temps, moteur, observer);
-    FenetrePrincipale *fenPrincipale=new FenetrePrincipale(ferme, temps, moteur, fenNouvelleRace, fenNouvelElevage);
-    FenetrePremiereOuverture* feneteInit=new FenetrePremiereOuverture(ferme, temps, moteur, fenPrincipale, observer);
+    FenetreNouvelleRace * fenNouvelleRace= new FenetreNouvelleRace(ferme, moteur);
+    FenetreNouvelElevage* fenNouvelElevage=new FenetreNouvelElevage(ferme, moteur, observer);
+    FenetrePrincipale *fenPrincipale=new FenetrePrincipale(ferme, moteur, fenNouvelleRace, fenNouvelElevage);
+    FenetrePremiereOuverture* feneteInit=new FenetrePremiereOuverture(ferme, moteur, fenPrincipale, observer);
         //feneteInit.show();
     fenNouvelElevage->setFenetrePrincipale(fenPrincipale);
     
@@ -293,7 +293,7 @@ int main(int argc, char *argv[]) {
 #endif
     
     
-    std::shared_ptr<CommandeAfficherFenetre> afficheFenetre = std::make_shared<CommandeAfficherFenetre>(ferme, temps, feneteInit);
+    std::shared_ptr<CommandeAfficherFenetre> afficheFenetre = std::make_shared<CommandeAfficherFenetre>(ferme, feneteInit);
     moteur->ajouterCommande(afficheFenetre);
 
 #ifndef MULTITHREAD   
