@@ -217,9 +217,9 @@ void FenetrePrincipale::creationZoneCentrale()
 /*QWidget* */void FenetrePrincipale::addItemListeElevage(std::string nomElevage)
 {std::cout<< "rajouter item liste elevage"<<std::endl;
 //const QString nom(nomElevage.c_str())
-std::string *ptrNom = nomElevage.c_str();
+//std::string *ptrNom = nomElevage.c_str();
 //std::cout<< nomElevage<<std::endl;
-    listeElevage -> addItem(ptrNom);
+    listeElevage<<nomElevage;
     std::cout<< "fin rajouter item liste elevage"<<std::endl;
     //QWidget *item= new QWidget;//(stackedLayout);//, this, QListWidgetItem::Type);
     //stackedLayout -> addWidget(item);
