@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties":
+    {
+        "mescommandes":
+        {
+            "type":"array",
+            "minItems":1,
+            "items":
+            {
+                "type":"object",
+                "properties":
+                {
+                    "commande": 
+                    {
+                        "type": "object",
+                        "properties":
+                        {
+                                "nomcommande":{"type":"string"},
+                                "ferme":{"type":"boolean"},
+                                "nomElevage":{"type":"string"},
+                                "race":{"type":"string"},
+                                "animal":{"type":"string"},
+                                "animal":{"type":"string"},
+                                "budget":{"type":"number"},
+                                "emprunts":{"type":"number"},
+                                "sexe":{"type":"boolean"},
+                                "mois":{"type":"number", "minimum":0, "maximum":11},
+                                "annee":{"type":"number", "minimum":2016, "maximum":2500},
+                                "ancetre":{"type":"array", "items":{"type":"string"}},
+                                "fenetreprincipale":{"type":"boolean"},
+                                "observateur":{"type":"boolean"}
+                        }
+                    },
+                    "idUser":
+                    {
+                        "type":"number",
+                        "minimum":1,
+                        "maximum":5
+                    }
+                },
+                "required": ["commande", "idUser"],
+            }
+        }
+    },"required":["mescommandes"],
+}
